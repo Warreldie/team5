@@ -1,4 +1,4 @@
-# PHP-project: Team 5
+# PHP-project: Team 5(Supertof)
 
 ## Our team members
 - Project lead: Surinde Staetenburg
