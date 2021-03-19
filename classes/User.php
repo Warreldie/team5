@@ -5,7 +5,6 @@ class User
 {
     protected $username;
     protected $password;
-    protected $passwordConfirm;
     protected $leeftijd;
     protected $email;
 
@@ -48,27 +47,6 @@ class User
 
         return $this;
     }
-
-    /**
-     * Get the value of passwordConfirm
-     */ 
-    public function getPasswordConfirm()
-    {
-        return $this->passwordConfirm;
-    }
-
-    /**
-     * Set the value of passwordConfirm
-     *
-     * @return  self
-     */ 
-    public function setPasswordConfirm($passwordConfirm)
-    {
-        $this->passwordConfirm = $passwordConfirm;
-
-        return $this;
-    }
-
     /**
      * Get the value of leeftijd
      */ 
@@ -107,6 +85,21 @@ class User
         $this->email = $email;
 
         return $this;
+    }
+    public function register()
+    {
+        $options = [
+            'cost' => 15
+        ];
+        $password = password_hash($this->password, PASSWORD_DEFAULT, $options);
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("insert into users (username, password, leeftijd, email) values (:username, :password, :leeftijd, :email);");
+        $statement->bindValue(':username', $this->username);
+        $statement->bindValue(':password', $password);
+        $statement->bindValue(':leeftijd', $this->leeftijd);
+        $statement->bindValue(':email', $this->email);
+        return $statement->execute();
     }
     public static function getAllUsernames(){
         $conn = Db::getInstance();
