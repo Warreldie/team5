@@ -94,7 +94,7 @@ class User
         $password = password_hash($this->password, PASSWORD_DEFAULT, $options);
 
         $conn = Db::getInstance();
-        $statement = $conn->prepare("insert into users (username, password, leeftijd, email) values (:username, :password, :leeftijd, :email);");
+        $statement = $conn->prepare("insert into users (username, password, date_of_birth, email) values (:username, :password, :leeftijd, :email);");
         $statement->bindValue(':username', $this->username);
         $statement->bindValue(':password', $password);
         $statement->bindValue(':leeftijd', $this->leeftijd);
