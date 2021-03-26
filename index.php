@@ -16,6 +16,7 @@
         <a class="nav-link" href="logout.php">Logout</a>
     </li>
     <h1>Welcome On IMDTok</h1>
+    <p>Test</p>
 </body>
 
 </html>
