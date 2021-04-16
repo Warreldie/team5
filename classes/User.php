@@ -5,7 +5,7 @@ class User
 {
     protected $username;
     protected $password;
-    protected $leeftijd;
+    protected $date_of_birth;
     protected $email;
 
     /**
@@ -48,21 +48,21 @@ class User
         return $this;
     }
     /**
-     * Get the value of leeftijd
+     * Get the value of date_of_birth
      */ 
-    public function getLeeftijd()
+    public function getDate_of_birth()
     {
-        return $this->leeftijd;
+        return $this->date_of_birth;
     }
 
     /**
-     * Set the value of leeftijd
+     * Set the value of date_of_birth
      *
      * @return  self
      */ 
-    public function setLeeftijd($leeftijd)
+    public function setDate_of_birth($date_of_birth)
     {
-        $this->leeftijd = $leeftijd;
+        $this->date_of_birth = $date_of_birth;
 
         return $this;
     }
@@ -94,10 +94,10 @@ class User
         $password = password_hash($this->password, PASSWORD_DEFAULT, $options);
 
         $conn = Db::getInstance();
-        $statement = $conn->prepare("insert into users (username, password, date_of_birth, email) values (:username, :password, :leeftijd, :email);");
+        $statement = $conn->prepare("insert into users (username, password, date_of_birth, email) values (:username, :password, :date_of_birth, :email);");
         $statement->bindValue(':username', $this->username);
         $statement->bindValue(':password', $password);
-        $statement->bindValue(':leeftijd', $this->leeftijd);
+        $statement->bindValue(':leeftijd', $this->date_of_birth);
         $statement->bindValue(':email', $this->email);
         return $statement->execute();
     }
