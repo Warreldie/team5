@@ -7,7 +7,8 @@
     <title>Change profile</title>
 </head>
 <body>
-    <img>   
+    <a href="profile.php"> <- back </a>
+    <img><p>profile_image</p> 
 
     <h3>Name</h3>
     <p>John Doe</p>
@@ -17,5 +18,8 @@
 
     <h3>Bio</h3>
     <p>Lorem ipsum dolor sit amet, ut enim ad minim veniam.</p>
+
+    <h3>Email</h3>
+    <p>john.doe@gmail.com</p>
 
     <button type="button"><a href="password.php"> Change password </a></button>
