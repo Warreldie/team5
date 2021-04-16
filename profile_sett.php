@@ -10,7 +10,7 @@
     <img>   
 
     <h3>Name</h3>
-    <p>john doe</p>
+    <p>John Doe</p>
 
     <h3>Username</h3>
     <p>G.I. Joe</p>
@@ -18,4 +18,4 @@
     <h3>Bio</h3>
     <p>Lorem ipsum dolor sit amet, ut enim ad minim veniam.</p>
 
-    <button type="button"> Change password </button>
+    <button type="button"><a href="profile_password.php"> Change password </a></button>
