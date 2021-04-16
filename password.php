@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+    session_start();
+    
+    include_once(__DIR__ . "/User.php");
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
