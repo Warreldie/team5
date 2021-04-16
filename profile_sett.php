@@ -16,10 +16,11 @@
     <h3>Username</h3>
     <p>G.I. Joe</p>
 
+    <h3>Email</h3>
+    <p>john.doe@gmail.com</p>
+
     <h3>Bio</h3>
     <p>Lorem ipsum dolor sit amet, ut enim ad minim veniam.</p>
 
-    <h3>Email</h3>
-    <p>john.doe@gmail.com</p>
 
     <button type="button"><a href="password.php"> Change password </a></button>
