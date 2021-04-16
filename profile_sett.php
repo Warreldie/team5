@@ -18,4 +18,4 @@
     <h3>Bio</h3>
     <p>Lorem ipsum dolor sit amet, ut enim ad minim veniam.</p>
 
-    <button type="button"><a href="profile_password.php"> Change password </a></button>
+    <button type="button"><a href="password.php"> Change password </a></button>
