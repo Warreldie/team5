@@ -10,7 +10,7 @@ if (!empty($_POST)) {
         // will not get into the database
         $user->setUsername($_POST["username"]);
         $user->setPassword(($_POST['password']));
-        $user->setLeeftijd(($_POST['leeftijd']));
+        $user->setDate_of_birth(($_POST['date_of_birth']));
         $user->setEmail($_POST['email']);
 
         // register the user by executing a query in the database
@@ -57,8 +57,8 @@ if (!empty($_POST)) {
                 <input type="password" class="form-control" placeholder="Confirm Password" id="InputConfirmPassword" required>
             </div>
             <div class="mb-3">
-                <label for="InputDate" class="form-label">Wanneer ben je geboren</label>
-                <input type="date" name="leeftijd" class="form-control" id="InputDate" required>
+                <label for="InputDate" class="form-label">Date of birth</label>
+                <input type="date" name="date_of_birth" class="form-control" id="InputDate" required>
             </div>
             <div class="mb-3">
                 <label for="InputEmail" class="form-label">Email address</label>

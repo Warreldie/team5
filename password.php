@@ -9,8 +9,9 @@
 <body>
 <a href="profile_sett.php"> <- back </a>
 <form method="post" action>
-			<input name="current password" placeholder="current password" type="password" />
-			<input name="new password" placeholder="new password" type="password" />
+			<input name="current password" placeholder="current password" type="password" required/>
+			<input name="new password" placeholder="new password" type="password" required />
+            <input name="confirm password" placeholder="confirm password" type="password" required />
 </form>
 
 <button type="button"><a href="profile_sett.php"> Save </a></button>
