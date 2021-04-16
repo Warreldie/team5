@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>profile</title>
+    <title>Change profile</title>
 </head>
 <body>
-    <h1>G.I. Joe</h1>
+    <img>   
 
-    <h3>John Doe</h3>
+    <h3>Name</h3>
+    <p>john doe</p>
+
+    <h3>Username</h3>
+    <p>G.I. Joe</p>
+
+    <h3>Bio</h3>
     <p>Lorem ipsum dolor sit amet, ut enim ad minim veniam.</p>
 
-    <button type="button"><a href="profile_sett.php">Change profile</a></button>
-</body>
-</html>
+    <button type="button"> Change password </button>
