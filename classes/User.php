@@ -136,9 +136,10 @@ class User
         $hash = $user["password"];
 
         if (!$user) {
-            return false;
+            throw new Exception("Email and/or password is wrong");
         }
 
+        
         // password_verify() verifies the user
         // this function returns true or false
         if (password_verify($password, $hash)) {

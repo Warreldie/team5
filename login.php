@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-include_once(__DIR__ . "/classes/User.php");
 
-    
-    //checks to see if input is emty
-    if (!empty($_POST)) {
+//checks to see if input is emty
+if (!empty($_POST)) {
+    try {
+        include_once(__DIR__ . "/classes/User.php");
         $user->setEmail($_POST["email"]);
         $user->setPassword($_POST["password"]);
 
@@ -14,12 +14,12 @@ include_once(__DIR__ . "/classes/User.php");
             $email = $user->getEmail();
             $_SESSION['user'] = $email;
             //go to index.php
-            header('Location: feed.php');
-
-        } else {
-            $error = "Email and/or password aren't correct";
+            header('Location: index.php');
         }
-    }
+    } catch (Throwable $error) {
+        $error = $error->getMessage();
+        }
+}
 
 
 
