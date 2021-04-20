@@ -1,18 +1,16 @@
 <?php
-session_start();
-
-
 //checks to see if input is emty
 if (!empty($_POST)) {
     try {
         include_once(__DIR__ . "/classes/User.php");
+        $user = new User;
         $user->setEmail($_POST["email"]);
         $user->setPassword($_POST["password"]);
 
         if ($user->canLogin()) {
             //session start with username in it
-            $email = $user->getEmail();
-            $_SESSION['user'] = $email;
+            session_start();
+            $_SESSION['user'] = $user->getEmail();
             //go to index.php
             header('Location: index.php');
         }
