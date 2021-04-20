@@ -1,4 +1,27 @@
 <?php
+session_start();
+
+include_once(__DIR__ . "/classes/User.php");
+
+    
+    //checks to see if input is emty
+    if (!empty($_POST)) {
+        $user->setEmail($_POST["email"]);
+        $user->setPassword($_POST["password"]);
+
+        if ($user->canLogin()) {
+            //session start with username in it
+            $email = $user->getEmail();
+            $_SESSION['user'] = $email;
+            //go to index.php
+            header('Location: feed.php');
+
+        } else {
+            $error = "Email and/or password aren't correct";
+        }
+    }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -11,5 +34,19 @@
 </head>
 <body>
     <h1>Log yourself back in..</h1>
+    <form id="login" method="POST" action="">
+            <?php if(isset($error)): ?>
+                <div class="alert alert-danger"><?php echo $error; ?></div>
+            <?php endif; ?>
+    
+            <input name="email" placeholder="Email" type="email" required />
+            <input name="password" placeholder="Password" type="password" required />
+    
+            
+            <input name="login" type="submit" value="Log in" />
+    
+    </form>
+
+
 </body>
 </html>

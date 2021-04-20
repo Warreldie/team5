@@ -86,6 +86,8 @@ class User
 
         return $this;
     }
+
+
     public function register()
     {
         $options = [
@@ -101,6 +103,8 @@ class User
         $statement->bindValue(':email', $this->email);
         return $statement->execute();
     }
+
+
     public static function getAllUsernames(){
         $conn = Db::getInstance();
         $statement = $conn->query("select username from users");
@@ -117,4 +121,31 @@ class User
         $result = $statement->fetchAll(PDO::FETCH_COLUMN);
         return $result;
     }
+
+    public function canLogin(){
+        //this function checks if a user can login
+        $email = $this->getEmail();
+        $password = $this->getPassword();
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from users where email = :email");
+        $statement->bindValue(":email", $email);
+        $statement->execute();
+
+        $user = $statement->fetch();
+        $hash = $user["password"];
+
+        if (!$user) {
+            return false;
+        }
+
+        // password_verify() verifies the user
+        // this function returns true or false
+        if (password_verify($password, $hash)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }
