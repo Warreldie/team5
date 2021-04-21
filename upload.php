@@ -27,7 +27,8 @@
 
                 }else{
                     echo "Your file was to big!";
-                    //Video https://www.youtube.com/watch?v=y4GxrIa7MiE min 20
+                    //To start uploading images in de databank https://www.youtube.com/watch?v=1NiJcZrPHvA
+                    //Niet meer lokaal doen...
                 }
 
             }else{
