@@ -1,4 +1,5 @@
-<?
+<?php
+    //If you click on submi we will readout the picture
     if(isset($_POST["submit"])){
         $file = $_FILES["file"];
 
@@ -8,15 +9,33 @@
         $fileError = $_FILES["file"]["error"];
         $fileType = $_FILES["file"]["type"];
 
+        //We use the explode in the name to know the kind of document
         $fileExt = explode(".", $fileName);
         $fileActualExt = strtolower(end($fileExt));
 
         $allowed = array("jpg", "jpeg", "png", "pdf");
 
+        //Looking of the type of document is allowed, if there was an error and if the filesize is not to big
         if(in_array($fileActualExt, $allowed)){
-            //Minuut 16 https://www.youtube.com/watch?v=JaRq73y5MJk
+            if($fileError === 0){
+                if($fileSize < 500000){
+                    //Placing the image in folder upload
+                    $fileNameNew = uniqid('', true).".". $fileActualExt;
+                    $fileDestination = "uploads/". $fileNameNew;
+                    move_uploaded_file($fileTmpName, $fileDestination);
+                    header("location: index.php?uploadsucces");
+
+                }else{
+                    echo "Your file was to big!";
+                    //Video https://www.youtube.com/watch?v=y4GxrIa7MiE min 20
+                }
+
+            }else{
+                echo "There was an error uploading your file!";
+            }
+
         }else{
-            echo "There was an error uploading your file!";
+            echo "You can't upload files of this type!";
         }
 
     }
