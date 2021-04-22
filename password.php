@@ -3,6 +3,8 @@
     
     include_once(__DIR__ . "/User.php");
 
+    $user = new User;
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -15,14 +17,10 @@
 <body>
 <a href="profile_sett.php"> <- back </a>
 <form method="post" action>
-			<input name="current password" placeholder="current password" type="password" required/>
-<<<<<<< HEAD
-			<input name="new password" placeholder="new password" type="password" required />
-            <input name="confirm password" placeholder="confirm password" type="password" required />
-=======
-			<input name="new password" placeholder="new password" type="password" required/>
-            <input name="confirm password" placeholder="confirm password" type="password" required/>
->>>>>>> feature5
+			<input name="password" placeholder="current password" type="password" required/>
+			<input name="password_new" placeholder="new password" type="password" required />
+            <input name="password_conf" placeholder="confirm password" type="password" required />
+
 </form>
 
 <button type="button"><a href="profile_sett.php"> Save </a></button>
