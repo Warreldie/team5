@@ -122,7 +122,7 @@ class User
         return $result;
     }
 
-    public function canLogin(){
+    public function canLogin($email, $password){
         //this function checks if a user can login
         $email = $this->getEmail();
         $password = $this->getPassword();
@@ -131,7 +131,6 @@ class User
         $statement = $conn->prepare("select * from users where email = :email");
         $statement->bindValue(":email", $email);
         $statement->execute();
-
         $user = $statement->fetch();
         $hash = $user["password"];
 
@@ -139,7 +138,6 @@ class User
             throw new Exception("Email and/or password is wrong");
         }
 
-        
         // password_verify() verifies the user
         // this function returns true or false
         if (password_verify($password, $hash)) {
