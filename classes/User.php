@@ -93,18 +93,18 @@ class User
         $options = [
             'cost' => 15
         ];
-        $password = password_hash($this->password, PASSWORD_DEFAULT, $options);
+        $hashpassword = password_hash($this->password, PASSWORD_DEFAULT, $options);
 
         $conn = Db::getInstance();
         $statement = $conn->prepare("insert into users (username, password, date_of_birth, email) values (:username, :password, :date_of_birth, :email);");
         $statement->bindValue(':username', $this->username);
-        $statement->bindValue(':password', $password);
+        $statement->bindValue(':password', $hashpassword);
         $statement->bindValue(':leeftijd', $this->date_of_birth);
         $statement->bindValue(':email', $this->email);
         return $statement->execute();
     }
 
-
+    //Function for ajax live checking if username or email already exist
     public static function getAllUsernames(){
         $conn = Db::getInstance();
         $statement = $conn->query("select username from users");
@@ -113,6 +113,7 @@ class User
         $result = $statement->fetchAll(PDO::FETCH_COLUMN);
         return $result;
     }
+    //Function for ajax live checking if username or email already exist
     public static function getAllEmails(){
         $conn = Db::getInstance();
         $statement = $conn->query("select email from users");

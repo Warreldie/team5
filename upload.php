@@ -24,10 +24,20 @@ include_once(__DIR__ . "../../team5/helpers/Security.php");
                     $fileNameNew = uniqid('', true).".". $fileActualExt;
                     $fileDestination = "content/". $fileNameNew;
                     move_uploaded_file($fileTmpName, $fileDestination);
+
+                    include_once(__DIR__ . "/classes/Post.php");
+
+                    $post = new Post();
+
+                    $post->setFilename($fileNameNew);
+                    
+                    $post->save();
                     //Je slaat de naam van je content op in je databank en zo haal je die er terug uit.
                     //$fileNameNew has to come together with the user_id in the database
                     //user_id halen we uit de Session => sessionstart() => security.php bovenaan de pagina
-
+                    
+                    //saveFile($fileNameNew);
+                    //setFileName($fileNameNew);
 
                     //Zet ook nog een succes-boodschap op één of andere manier
                     header("location: index.php?uploadsucces");
