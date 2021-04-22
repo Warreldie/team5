@@ -99,7 +99,7 @@ class User
         $statement = $conn->prepare("insert into users (username, password, date_of_birth, email) values (:username, :password, :date_of_birth, :email);");
         $statement->bindValue(':username', $this->username);
         $statement->bindValue(':password', $password);
-        $statement->bindValue(':leeftijd', $this->date_of_birth);
+        $statement->bindValue(':date_of_birth', $this->date_of_birth);
         $statement->bindValue(':email', $this->email);
         return $statement->execute();
     }
@@ -121,6 +121,7 @@ class User
         $result = $statement->fetchAll(PDO::FETCH_COLUMN);
         return $result;
     }
+    /*
 
     public function canLogin($email, $password){
         //this function checks if a user can login
@@ -145,6 +146,6 @@ class User
         } else {
             return false;
         }
-    }
+    }*/
     
 }
