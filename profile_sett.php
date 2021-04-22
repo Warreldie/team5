@@ -8,7 +8,10 @@
 </head>
 <body>
     <a href="profile.php"> <- back </a>
-    <img><p>profile_image</p> 
+    
+    <button type="button"><a href="profile-picture.php">Upload profile picture</a></button>
+    
+    <img><p>profile_image</p>
 
     <h3>Name</h3>
     <p>John Doe</p>
