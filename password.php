@@ -3,6 +3,8 @@
     
     include_once(__DIR__ . "/User.php");
 
+    $user = new User;
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -15,10 +17,7 @@
 <body>
 <a href="profile_sett.php"> <- back </a>
 <form method="post" action>
-			
 
-
->>>>>>> feature5
 </form>
 
 <button type="button"><a href="profile_sett.php"> Save </a></button>

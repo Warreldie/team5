@@ -1,18 +1,17 @@
 <?php
-session_start();
-include_once(__DIR__ . "/classes/User.php");
-
-$user = new User;
 
 //checks to see if input is emty
 if (!empty($_POST)) {
     try {
+        include_once(__DIR__ . "/classes/User.php");
+        $user = new User;
         $user->setEmail($_POST["email"]);
         $user->setPassword($_POST["password"]);
 
 
         if ($user->canLogin($email, $password)) {
             //session start with username in it
+            session_start();
             $_SESSION['user'] = $user->getEmail();
             //go to index.php
             echo "You are in!";
@@ -23,7 +22,7 @@ if (!empty($_POST)) {
         $error = $error->getMessage();
         }
 
-        var_dump($email, $password);
+
 }
 
 
