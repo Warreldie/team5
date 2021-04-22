@@ -1,4 +1,5 @@
 <?php
+include_once(__DIR__ . "../../team5/helpers/Security.php");
     //If you click on submi we will readout the picture
     if(isset($_POST["submit"])){
         $file = $_FILES["file"];
@@ -19,16 +20,19 @@
         if(in_array($fileActualExt, $allowed)){
             if($fileError === 0){
                 if($fileSize < 500000){
-                    //Placing the image in folder upload
+                    //Placing the image in content map with unique id then you can find all the content at the project under team5/content => http://localhost/phples/team5/content/ 
                     $fileNameNew = uniqid('', true).".". $fileActualExt;
-                    $fileDestination = "uploads/". $fileNameNew;
+                    $fileDestination = "content/". $fileNameNew;
                     move_uploaded_file($fileTmpName, $fileDestination);
-                    header("location: index.php?uploadsucces");
+                    //Je slaat de naam van je content op in je databank en zo haal je die er terug uit.
+                    //$fileNameNew has to come together with the user_id in the database
+                    //user_id halen we uit de Session => sessionstart() => security.php bovenaan de pagina
 
+
+                    //Zet ook nog een succes-boodschap op één of andere manier
+                    header("location: index.php?uploadsucces");
                 }else{
                     echo "Your file was to big!";
-                    //To start uploading images in de databank https://www.youtube.com/watch?v=1NiJcZrPHvA
-                    //Niet meer lokaal doen...
                 }
 
             }else{
