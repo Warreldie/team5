@@ -16,7 +16,7 @@ if (!empty($_POST)) {
         // register the user by executing a query in the database
         $user->register();
 
-        // start a session and redirect the user to feed.php
+        // start a session and redirect the user to index.php
         session_start();
         $_SESSION['user'] = $user->getEmail();
         header("Location: index.php");
