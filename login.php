@@ -1,5 +1,5 @@
 <?php
-/*
+
 //checks to see if input is emty
 if (!empty($_POST)) {
     try {
@@ -23,7 +23,7 @@ if (!empty($_POST)) {
 
 
 }
-*/
+
 
 
 ?>

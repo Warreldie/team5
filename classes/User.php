@@ -93,7 +93,7 @@ class User
         $options = [
             'cost' => 15
         ];
-        $hashpassword = password_hash($this->password, PASSWORD_DEFAULT, $options);
+        $password = password_hash($this->password, PASSWORD_DEFAULT, $options);
 
         $conn = Db::getInstance();
         $statement = $conn->prepare("insert into users (username, password, date_of_birth, email) values (:username, :password, :date_of_birth, :email);");
@@ -122,7 +122,7 @@ class User
         $result = $statement->fetchAll(PDO::FETCH_COLUMN);
         return $result;
     }
-    /*
+    
 
     public function canLogin($email, $password){
         //this function checks if a user can login
@@ -147,6 +147,6 @@ class User
         } else {
             return false;
         }
-    }*/
+    }
     
 }
