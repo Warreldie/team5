@@ -1,49 +1,52 @@
 <?php
 include_once(__DIR__ . "../../team5/helpers/Security.php");
-    //If you click on submi we will readout the picture
-    if(isset($_POST["submit"])){
-        $file = $_FILES["file"];
+include_once(__DIR__ . "/classes/Post.php");
+//If you click on submi we will readout the picture
+if (isset($_POST["submit"])) {
+    $file = $_FILES["file"];
 
-        $fileName = $_FILES["file"]["name"];
-        $fileTmpName = $_FILES["file"]["tmp_name"];
-        $fileSize = $_FILES["file"]["size"];
-        $fileError = $_FILES["file"]["error"];
-        $fileType = $_FILES["file"]["type"];
+    $fileName = $_FILES["file"]["name"];
+    $fileTmpName = $_FILES["file"]["tmp_name"];
+    $fileSize = $_FILES["file"]["size"];
+    $fileError = $_FILES["file"]["error"];
+    $fileType = $_FILES["file"]["type"];
 
-        //We use the explode in the name to know the kind of document
-        $fileExt = explode(".", $fileName);
-        $fileActualExt = strtolower(end($fileExt));
+    //We use the explode in the name to know the kind of document
+    $fileExt = explode(".", $fileName);
+    $fileActualExt = strtolower(end($fileExt));
 
-        $allowed = array("jpg", "jpeg", "png", "pdf");
+    $allowed = array("jpg", "jpeg", "png", "pdf");
 
-        //Looking of the type of document is allowed, if there was an error and if the filesize is not to big
-        if(in_array($fileActualExt, $allowed)){
-            if($fileError === 0){
-                if($fileSize < 500000){
-                    //Placing the image in content map with unique id then you can find all the content at the project under team5/content => http://localhost/phples/team5/content/ 
-                    $fileNameNew = uniqid('', true).".". $fileActualExt;
-                    $fileDestination = "content/". $fileNameNew;
-                    move_uploaded_file($fileTmpName, $fileDestination);
-                    //Je slaat de naam van je content op in je databank en zo haal je die er terug uit.
-                    //$fileNameNew has to come together with the user_id in the database
-                    //user_id halen we uit de Session => sessionstart() => security.php bovenaan de pagina
+    //Looking of the type of document is allowed, if there was an error and if the filesize is not to big
+    if (in_array($fileActualExt, $allowed)) {
+        if ($fileError === 0) {
+            if ($fileSize < 500000) {
+                //Placing the image in content map with unique id then you can find all the content at the project under team5/content => http://localhost/phples/team5/content/ 
+                $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                $fileDestination = "content/" . $fileNameNew;
+                move_uploaded_file($fileTmpName, $fileDestination);
 
+                //Create a new post
+                $post = new Post();
 
-                    //Zet ook nog een succes-boodschap op één of andere manier
-                    header("location: index.php?uploadsucces");
-                }else{
-                    echo "Your file was to big!";
-                }
+                //Set the fileName 
+                $post->setFilename($fileNameNew);
 
-            }else{
-                echo "There was an error uploading your file!";
+                //Save the filename into post_image tabel in the databank
+                $post->save();
+
+                //Zet ook nog een succes-boodschap op één of andere manier
+                header("location: index.php?uploadsucces");
+            } else {
+                $error = "Your file was to big!";
             }
-
-        }else{
-            echo "You can't upload files of this type!";
+        } else {
+            $error = "There was an error uploading your file!";
         }
-
+    } else {
+        $error = "You can't upload files of this type!";
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +63,11 @@ include_once(__DIR__ . "../../team5/helpers/Security.php");
     <div class="container">
         <h1>Upload</h1>
         <form method="POST" action="" enctype="multipart/form-data">
+            <?php if(isset($error)): ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $error; ?>
+            </div>
+            <?php endif; ?>
             <div class="mb-3">
                 <textarea class="form-control" placeholder="Description"></textarea>
             </div>

@@ -5,9 +5,8 @@ if (!empty($_POST)) {
     try {
         include_once(__DIR__ . "/classes/User.php");
         $user = new User;
-        $user->setEmail($_POST["email"]);
-        $user->setPassword($_POST["password"]);
-
+        $email = $user->setEmail($_POST["email"]);
+        $password = $user->setPassword($_POST["password"]);
 
         if ($user->canLogin($email, $password)) {
             //session start with username in it
