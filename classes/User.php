@@ -191,7 +191,7 @@ class User
         return $this;
     }
     
-
+    //function to insert new password in the database
     public function save_password(){
         
         $conn = Db::getInstance();
