@@ -24,7 +24,7 @@
 
 </form>
 
-<button type="button"><a href="profile_sett.php"> Save </a></button>
+<button type="button"><a href="profile_settings.php"> Save </a></button>
 			
 </body>
 </html>
