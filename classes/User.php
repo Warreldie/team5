@@ -136,17 +136,78 @@ class User
         $user = $statement->fetch();
         $hash = $user["password"];
 
-        if (!$user) {
+        if (!$user){
             throw new Exception("Email and/or password is wrong");
         }
 
         // password_verify() verifies the user
         // this function returns true or false
-        if (password_verify($password, $hash)) {
+        if (password_verify($password, $hash)){
             return true;
         } else {
             return false;
         }
     }
+
+
+    //setters and getters for feature 5 (changing password)
+    protected $password_new;
+    protected $password_conf;
+
+    /**
+     * Get the value of new password
+     */ 
+    public function getPassword_new(){
+        return $this->passsword_new;
+    }
+
+     /**
+     * Set the value of new password
+     *
+     * @return  self
+     */ 
+    public function setPassword_new($password_new){
+        $this->passsword_new = $password_new;
+
+        return $this;
+    }
+    
+
+    /**
+     * Get the value of confirm password
+     */ 
+    public function getPassword_conf(){
+        return $this->passsword_conf;
+    }
+    
+     /**
+     * Set the value of confirm password
+     *
+     * @return  self
+     */ 
+    public function setPassword_conf($password_conf){
+        $this->passsword_conf = $password_conf;
+
+        return $this;
+    }
+    
+
+    public function save_password(){
+        
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("insert into users (password) values (:password)");
+        $statement->bindValue(":password", $this->password_new);
+        return $statement->execute();
+
+    }
+
+
+
+
+
+
+
+
+
     
 }

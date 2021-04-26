@@ -21,6 +21,7 @@
 
     <h3>Email</h3>
     <p>john.doe@gmail.com</p>
+    <button type="button"><a href="email.php"> Change email </a></button>
 
     <h3>Bio</h3>
     <p>Lorem ipsum dolor sit amet, ut enim ad minim veniam.</p>

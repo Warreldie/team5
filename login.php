@@ -1,6 +1,6 @@
 <?php
 
-//checks to see if input is emty
+//checks to see if input is empty
 if (!empty($_POST)) {
     try {
         include_once(__DIR__ . "/classes/User.php");

@@ -3,7 +3,7 @@
     
     include_once(__DIR__ . "/User.php");
 
-    $user = new User;
+ 
 
 
 ?><!DOCTYPE html>
@@ -17,6 +17,10 @@
 <body>
 <a href="profile_sett.php"> <- back </a>
 <form method="post" action>
+<input name="password" placeholder="Current password" type="password" required />
+<input name="password_new" placeholder="New password" type="password" required />
+<input name="password_conf" placeholder="Confirm password" type="password" required />
+				
 
 </form>
 
