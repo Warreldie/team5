@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+    session_start();
+    include_once(__DIR__ . "/User.php");
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,11 +12,12 @@
     <title>profile</title>
 </head>
 <body>
-    <h1>G.I. Joe</h1>
+    
+    <h1>John Doe</h1>
 
-    <h3>John Doe</h3>
     <p>Lorem ipsum dolor sit amet, ut enim ad minim veniam.</p>
 
-    <button type="button"><a href="profile_sett.php">Change profile</a></button>
+
+    <button type="button"><a href="profile_settings.php">Change profile</a></button>
 </body>
 </html>

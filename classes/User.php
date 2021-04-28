@@ -191,14 +191,55 @@ class User
         return $this;
     }
     
+
+    public function check_password($password){
+        //this function checks if the current password = password in database
+        $password = $this->getPassword();
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from users where password = :password");
+        $statement->bindValue(":password", $password);
+        $statement->execute();
+        $user = $statement->fetch();
+        $hash = $user["password"];
+
+        if (!$password){
+            throw new Exception("Current password is wrong");
+        }
+
+        if (password_verify($password, $hash)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     //function to insert new password in the database
+    //function also contains password_hash
     public function save_password(){
-        
+
+        $options = [
+			'cost' => 15,
+		];
+		$password_new = password_hash($this->password_new, PASSWORD_DEFAULT, $options);
+
         $conn = Db::getInstance();
         $statement = $conn->prepare("insert into users (password) values (:password)");
-        $statement->bindValue(":password", $this->password_new);
-        return $statement->execute();
 
+        $password_new = $this->getPassword_new();
+
+        $statement->bindValue(":password", $password_new);
+
+        $result = $statement->execute();
+
+        return $result;
+
+/*
+        if ($password_new!==$password_conf){
+            throw new Exception("Email and/or password is wrong");
+        }
+*/
     }
 
 

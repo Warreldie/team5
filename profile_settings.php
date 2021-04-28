@@ -13,11 +13,8 @@
     
     <img><p>profile_image</p>
 
-    <h3>Name</h3>
-    <p>John Doe</p>
-
     <h3>Username</h3>
-    <p>G.I. Joe</p>
+    <p>John Doe</p>
 
     <h3>Email</h3>
     <p>john.doe@gmail.com</p>
