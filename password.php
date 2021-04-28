@@ -2,38 +2,29 @@
     session_start();
     include_once(__DIR__ . "/User.php");
 
-    //checks login
-    $loggedin = true;
-        if(!$loggedin){
-            header("Location: login.php");
-        }
-    
-    //checks if password is the same as password in the database
-   /* if (!empty($_POST['password'])){
-        try{
-            $user = new User();
-            $password = $_POST['password'];
-        
-        }catch (Throwable $th) {
-            $error = $th->getMessage();
-        }
-
-    }
-    */
-
     if (!empty($_POST)){
 
         try {
             $user = new User();
+            $user->setPassword($_POST["password"]);
             $user->setPassword_new($_POST["password_new"]);
             $user->setPassword_conf($_POST["password_conf"]);
        
+            //checks if password matches password from databank
+            if($user->check_password($password)){
+                
+                // checks if new password = confirm password
+                if($password_new === $password_conf){
+                    
+                    // saves  new password by executing a query in the database
+                    $user->save_password();
+                    $success = "Password changed";
 
-            if($password_new === $password_conf){
-                $user->save_password();
-                $success = "Password changed";
-
+                }else{
+                    $failure = "New password and confirm password don't match";
+                }
             }
+
         } catch (Throwable $th) {
             $error = $th->getMessage();
         }
@@ -53,14 +44,17 @@
 <a href="profile_settings.php"> <- back </a>
 
 <form method="post" action>
-        <?php if (isset($error)): ?>
+        <?php if(isset($error)): ?>
             <div class="error"> <?php echo $error;?> </div>
         <?php endif; ?>
 
-        <?php if (isset($success)): ?>
+        <?php if(isset($success)): ?>
             <div class="success"> <?php echo $success;?> </div>
         <?php endif; ?>
 
+        <?php if(isset($failure)): ?>
+            <div class="failure"> <?php echo $failure;?> </div>
+        <?php endif; ?>
     
     <label>Current Password</label>
     <div><input name="password" placeholder="Current password" type="password" required /></div>

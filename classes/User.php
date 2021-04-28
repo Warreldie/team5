@@ -191,9 +191,9 @@ class User
         return $this;
     }
     
-
+    //checks if the current password = password from database
     public function check_password($password){
-        //this function checks if the current password = password in database
+        
         $password = $this->getPassword();
 
         $conn = Db::getInstance();
@@ -215,8 +215,8 @@ class User
     }
 
 
-    //function to insert new password in the database
-    //function also contains password_hash
+    //insert new password in database
+    //also contains password_hash
     public function save_password(){
 
         $options = [
@@ -235,12 +235,83 @@ class User
 
         return $result;
 
-/*
-        if ($password_new!==$password_conf){
-            throw new Exception("Email and/or password is wrong");
-        }
-*/
     }
+
+
+
+
+    //setters and getters for feature 6 (changing email)
+    protected $email_new;
+    protected $email_conf;
+
+    /**
+     * Get the value of new email
+     */ 
+    public function getEmail_new(){
+        return $this->email_new;
+    }
+
+     /**
+     * Set the value of new email
+     *
+     * @return  self
+    */ 
+    public function setEmail_new($email_new){
+         $this->email_new = $email_new;
+
+        return $this;
+    }
+ 
+
+    /**
+     * Get the value of confirm email
+     */ 
+    public function getEmail_conf(){
+        return $this->email_conf;
+    }
+ 
+    /**
+     * Set the value of confirm email
+    *
+    * @return  self
+    */ 
+    public function setEmail_conf($email_conf){
+        $this->email_conf = $email_conf;
+
+        return $this;
+    }
+
+
+    //checks if current email = email from database
+    public function check_email($email){
+        
+        $email= $this->getEmail();
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from users where email = :email");
+        $statement->bindValue(":email", $email);
+        $statement->execute();
+        $e=$statement->fetch();
+        return $e;
+    }
+ 
+    //function to insert new email in database
+    public function save_email(){
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("insert into users (email) values (:email)");
+
+        $email_new = $this->getEmail_new();
+
+        $statement->bindValue(":email", $email_new);
+
+        $result = $statement->execute();
+
+        return $result;
+    }
+
+
+
 
 
 
