@@ -4,7 +4,7 @@
     if (!empty($_POST)){
 
         try {
-            include_once(__DIR__ . "/User.php");
+            include_once(__DIR__ . "/classes/User.php");
 
             $user = new User();
             

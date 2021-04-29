@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+<?php
+    include_once(__DIR__ . "/classes/User.php");
+    
+    if (!empty($_POST)){
+       
+        $user = new User();
+
+        $user->setBio($_POST['bio']);
+
+        //echo $user->getBio();
+
+       // saves bio by executing a query in the database
+        $user->save_bio();
+        $success = "Bio changed";
+
+
+
+        
+    }else{
+        $failure = "Bio wasn't changed";
+    }
+
+
+    $users = User::getAll_bio();
+    //var_dump($users);
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +48,15 @@
     <button type="button"><a href="email.php"> Change email </a></button>
 
     <h3>Bio</h3>
-    <p>Lorem ipsum dolor sit amet, ut enim ad minim veniam.</p>
+        <?php foreach($users as $u): ?>
+            <p><?php echo $u["bio"]; ?></p>
+        <?php endforeach; ?>
 
+    <form method="post" action>
+        <label>Change Bio</label>
+        <div><input name="bio" placeholder="Lorem ipsum dolor." type="text" size="90"/></div>
+    </form>
+    <button type="submit">Save</button>
 
-    <button type="button"><a href="password.php"> Change password </a></button>
+    <h3>Password</h3>
+    <div><button type="button"><a href="password.php"> Change password </a></button></div>

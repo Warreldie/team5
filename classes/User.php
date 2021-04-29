@@ -310,6 +310,54 @@ class User
         return $result;
     }
 
+    //setters and getters for feature 5 (changing bio)
+    protected $bio;
+    
+    /**
+     * Get the value of bio
+     */ 
+    public function getBio(){
+        return $this->bio;
+    }
+
+     /**
+     * Set the value of bio
+     *
+     * @return  self
+    */ 
+    public function setBio($bio){
+         $this->bio = $bio;
+
+        return $this;
+    }
+
+   //insert bio in database
+    public function save_bio(){
+        //conn
+        $conn = Db::getInstance();
+
+        //insert query
+        $statement = $conn->prepare("insert into users (bio) values (:bio)");
+
+        $bio = $this->getBio();
+
+        $statement->bindValue(":bio", $bio);
+
+        $result = $statement->execute();
+
+        //return result
+        return $result;
+    }
+
+    //
+    public static function getAll_bio(){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare('select * from users');
+        $statement->execute();
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $users;
+    }
 
 
 
