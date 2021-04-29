@@ -3,31 +3,31 @@ include_once(__DIR__ . "../../team5/helpers/Security.php");
 include_once(__DIR__ . "/classes/Post.php");
 //If you click on submi we will readout the picture
 if (isset($_POST["submit"])) {
-    $file = $_FILES["file"];
+    //Create a new post
+    $post = new Post();
 
-    $fileName = $_FILES["file"]["name"];
-    $fileTmpName = $_FILES["file"]["tmp_name"];
-    $fileSize = $_FILES["file"]["size"];
-    $fileError = $_FILES["file"]["error"];
-    $fileType = $_FILES["file"]["type"];
+    $post->setFile($_FILES["file"]);
+    
+    $post->setFilename($_FILES["file"]["name"]);
+    $post->setFiletmpname($_FILES["file"]["tmp_name"]);
+    $post->setFilesize($_FILES["file"]["size"]);
+    $post->setFileerror($_FILES["file"]["error"]);
 
     //We use the explode in the name to know the kind of document
-    $fileExt = explode(".", $fileName);
-    $fileActualExt = strtolower(end($fileExt));
+    //Explode happens now in post I have to do also the array and make a kind of function for the file if it is allowed?
+    $post->setFiletype($post->getFilename());
+    echo $post->getFilename();
 
     $allowed = array("jpg", "jpeg", "png", "pdf");
 
     //Looking of the type of document is allowed, if there was an error and if the filesize is not to big
-    if (in_array($fileActualExt, $allowed)) {
+    if (in_array($post->getFilename(), $allowed)) {
         if ($fileError === 0) {
             if ($fileSize < 500000) {
                 //Placing the image in content map with unique id then you can find all the content at the project under team5/content => http://localhost/phples/team5/content/ 
                 $fileNameNew = uniqid('', true) . "." . $fileActualExt;
                 $fileDestination = "content/" . $fileNameNew;
                 move_uploaded_file($fileTmpName, $fileDestination);
-
-                //Create a new post
-                $post = new Post();
 
                 //Set the fileName 
                 $post->setFilename($fileNameNew);
@@ -69,7 +69,7 @@ if (isset($_POST["submit"])) {
             </div>
             <?php endif; ?>
             <div class="mb-3">
-                <textarea class="form-control" placeholder="Description"></textarea>
+                <textarea class="form-control" placeholder="Description" required></textarea>
             </div>
             <img src="./images/image.jpg" class="mb-3 img-fluid" alt="IMDTok-video">
             <div class="mb-3">
