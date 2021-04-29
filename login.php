@@ -15,7 +15,11 @@ if (!empty($_POST)) {
             //go to index.php
             echo "You are in!";
             header("Location: index.php");
+
+        }else{
+            $failure = "Email and/or password is wrong";
         }
+
         
     } catch (Throwable $error) {
         $error = $error->getMessage();
@@ -40,6 +44,10 @@ if (!empty($_POST)) {
     <form id="login" method="POST" action="">
             <?php if(isset($error)): ?>
                 <div class="alert alert-danger"><?php echo $error; ?></div>
+            <?php endif; ?>
+
+            <?php if(isset($failure)): ?>
+                <div class="alert alert-danger"><?php echo $failure; ?></div>
             <?php endif; ?>
     
             <input name="email" placeholder="Email" type="email" required />
