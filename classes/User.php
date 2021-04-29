@@ -295,7 +295,7 @@ class User
         return $e;
     }
  
-    //function to insert new email in database
+    //insert new email in database
     public function save_email(){
 
         $conn = Db::getInstance();

@@ -5,7 +5,10 @@ include_once(__DIR__ . "/User.php");
 if (!empty($_POST)){
 
     try {
+        include_once(__DIR__ . "/User.php");
+
         $user=new User();
+        
         $user->setEmail($_POST["email"]);
         $user->setEmail_new($_POST["email_new"]);
         $user->setEmail_conf($_POST["email_conf"]);

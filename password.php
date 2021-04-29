@@ -1,11 +1,13 @@
 <?php
     session_start();
-    include_once(__DIR__ . "/User.php");
 
     if (!empty($_POST)){
 
         try {
+            include_once(__DIR__ . "/User.php");
+
             $user = new User();
+            
             $user->setPassword($_POST["password"]);
             $user->setPassword_new($_POST["password_new"]);
             $user->setPassword_conf($_POST["password_conf"]);
