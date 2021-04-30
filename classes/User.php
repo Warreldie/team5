@@ -178,14 +178,14 @@ class User
         
         $password = $this->getPassword();
 
-        $email = "surinde.st@gmail.com"; //test 
+        $userId = 20; //test
         
         // $email = $_SESSION["user"];
         //var_dump($_SESSION);
 
         $conn = Db::getInstance();
-        $statement = $conn->prepare("select * from users where email = :email");
-        $statement->bindValue(":email", $email);
+        $statement = $conn->prepare("select * from users where id = :id");
+        $statement->bindValue(":id", $userId);
         $statement->execute();
         $user = $statement->fetch();
         $hash = $user["password"];
@@ -204,7 +204,7 @@ class User
     //also contains password_hash
     public function savePassword(){
 
-        $email = "surinde.st@gmail.com"; //test
+        $userId = 20; //test
         $password_new = $this->getPassword_new();
 
         $options = [
@@ -213,10 +213,10 @@ class User
 		$password_new = password_hash($this->password_new, PASSWORD_DEFAULT, $options);
 
         $conn = Db::getInstance();
-        $statement = $conn->prepare("update users set password = :password where email = :email");
+        $statement = $conn->prepare("update users set password = :password where id = :id");
 
         $statement->bindValue(":password", $password_new);
-        $statement->bindValue(":email", $email);
+        $statement->bindValue(":id", $userId);
 
         $result = $statement->execute();
 
@@ -268,7 +268,7 @@ class User
     //insert new email in database
     public function saveEmail(){
 
-        $userId = 19; //test
+        $userId = 20; //test
         $email_new = $this->getEmail_new();
 
         $conn = Db::getInstance();
