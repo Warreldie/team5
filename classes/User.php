@@ -304,21 +304,24 @@ class User
     }
 
    //insert bio in database
-    public function save_bio(){
+    public function saveBio(){
+
+        $userId = 19; //test
+        $bio = $this->getBio();
+
         //conn
         $conn = Db::getInstance();
 
         //insert query
-        $statement = $conn->prepare("insert into users (bio) values (:bio)");
-
-        $bio = $this->getBio();
+        $statement = $conn->prepare("update users set bio = :bio where id = :id");
 
         $statement->bindValue(":bio", $bio);
+        $statement->bindValue(":id", $userId);
 
-        $result = $statement->execute();
+        $user = $statement->execute();
 
         //return result
-        return $result;
+        return $user;
     }
 
     //
@@ -327,8 +330,8 @@ class User
 
         $statement = $conn->prepare('select * from users');
         $statement->execute();
-        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $users;
+        $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $user;
     }
 
 

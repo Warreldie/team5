@@ -7,21 +7,15 @@
 
         $user->setBio($_POST['bio']);
 
-        echo $user->getBio();
-
        // saves bio by executing a query in the database
-        $user->save_bio();
+        $user->saveBio();
         $success = "Bio changed";
-
-
-
-        
     }else{
         $failure = "Bio wasn't changed";
     }
 
 
-    $users = User::getAll_bio();
+    $user = User::getAll_bio();
     //var_dump($users);
 
 
@@ -48,13 +42,13 @@
     <button type="button"><a href="email.php"> Change email </a></button>
 
     <h3>Bio</h3>
-        <?php foreach($users as $u): ?>
+        <?php foreach($user as $u): ?>
             <p><?php echo $u["bio"]; ?></p>
         <?php endforeach; ?>
 
     <form method="post" action>
         <label>Change Bio</label>
-        <div><input name="bio" placeholder="Lorem ipsum dolor." type="text" size="90"/></div>
+        <div><input name="bio" placeholder="Write your bio here" type="text" size="30"/></div>
         <button type="submit">Save</button>
     </form>
     
