@@ -254,7 +254,7 @@ class User
     public function checkEmail(){
         
         $email= $this->getEmail();
-        echo $email;
+        //echo $email;
         
         $conn = Db::getInstance();
         $statement = $conn->prepare("select * from users where email = :email");
@@ -282,6 +282,19 @@ class User
         return $result;
     }
 
+    public static function getAllEmail(){
+        
+        $userId = 20; //test
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare('select * from users where id = :id');
+        $statement->bindValue(":id", $userId);
+
+        $statement->execute();
+        $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $user;
+    }
+
     //setters and getters for feature 5 (changing bio)
     protected $bio;
     
@@ -306,7 +319,7 @@ class User
    //insert bio in database
     public function saveBio(){
 
-        $userId = 19; //test
+        $userId = 20; //test
         $bio = $this->getBio();
 
         //conn
@@ -324,8 +337,8 @@ class User
         return $user;
     }
 
-    //
-    public static function getAll_bio(){
+    
+    public static function getAllBio(){
         $conn = Db::getInstance();
 
         $statement = $conn->prepare('select * from users');
@@ -334,7 +347,18 @@ class User
         return $user;
     }
 
+    public static function getAllName(){
+        $userId = 20; //test
+        $conn = Db::getInstance();
 
+        $statement = $conn->prepare('select * from users where id = :id');
+        $statement->bindValue(":id", $userId);
+
+        $statement->execute();
+        $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $user;
+
+    }
 
 
 

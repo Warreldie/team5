@@ -15,9 +15,11 @@
     }
 
 
-    $user = User::getAll_bio();
-    //var_dump($users);
+    $user = User::getAllBio();
 
+    $user = User::getAllEmail();
+
+    $user = User::getAllName();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -35,10 +37,15 @@
     <img><p>profile_image</p>
 
     <h3>Username</h3>
-    <p>John Doe</p>
+        <?php foreach($user as $u): ?>
+            <p><?php echo $u["username"]; ?></p>
+        <?php endforeach; ?>
 
     <h3>Email</h3>
-    <p>john.doe@gmail.com</p>
+         <?php foreach($user as $u): ?>
+            <p><?php echo $u["email"]; ?></p>
+        <?php endforeach; ?>
+
     <button type="button"><a href="email.php"> Change email </a></button>
 
     <h3>Bio</h3>
