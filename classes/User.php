@@ -152,7 +152,6 @@ class User
 
     //setters and getters for feature 5 (changing password)
     protected $password_new;
-    protected $password_conf;
 
     /**
      * Get the value of new password
@@ -173,42 +172,28 @@ class User
     }
     
 
-    /**
-     * Get the value of confirm password
-     */ 
-    public function getPassword_conf(){
-        return $this->passsword_conf;
-    }
-    
-     /**
-     * Set the value of confirm password
-     *
-     * @return  self
-     */ 
-    public function setPassword_conf($password_conf){
-        $this->passsword_conf = $password_conf;
-
-        return $this;
-    }
     
     //checks if the current password = password from database
-    public function check_password($password){
+    public function checkPassword(){
         
         $password = $this->getPassword();
 
+        $email = "surinde.st@gmail.com"; //test 
+        
+        // $email = $_SESSION["user"];
+        //var_dump($_SESSION);
+
         $conn = Db::getInstance();
-        $statement = $conn->prepare("select * from users where password = :password");
-        $statement->bindValue(":password", $password);
+        $statement = $conn->prepare("select * from users where email = :email");
+        $statement->bindValue(":email", $email);
         $statement->execute();
         $user = $statement->fetch();
         $hash = $user["password"];
-
-        if (!$password){
-            throw new Exception("Current password is wrong");
-        }
-
+    
+    
         if (password_verify($password, $hash)){
             return true;
+            
         } else {
             return false;
         }
@@ -217,19 +202,21 @@ class User
 
     //insert new password in database
     //also contains password_hash
-    public function save_password(){
+    public function savePassword(){
+
+        $email = "surinde.st@gmail.com"; //test
+        $password_new = $this->getPassword_new();
 
         $options = [
-			'cost' => 15,
+			'cost' => 12,
 		];
 		$password_new = password_hash($this->password_new, PASSWORD_DEFAULT, $options);
 
         $conn = Db::getInstance();
-        $statement = $conn->prepare("insert into users (password) values (:password)");
-
-        $password_new = $this->getPassword_new();
+        $statement = $conn->prepare("update users set password = :password where email = :email");
 
         $statement->bindValue(":password", $password_new);
+        $statement->bindValue(":email", $email);
 
         $result = $statement->execute();
 
@@ -242,7 +229,6 @@ class User
 
     //setters and getters for feature 6 (changing email)
     protected $email_new;
-    protected $email_conf;
 
     /**
      * Get the value of new email
@@ -263,47 +249,33 @@ class User
     }
  
 
-    /**
-     * Get the value of confirm email
-     */ 
-    public function getEmail_conf(){
-        return $this->email_conf;
-    }
- 
-    /**
-     * Set the value of confirm email
-    *
-    * @return  self
-    */ 
-    public function setEmail_conf($email_conf){
-        $this->email_conf = $email_conf;
-
-        return $this;
-    }
-
 
     //checks if current email = email from database
-    public function check_email($email){
+    public function checkEmail(){
         
         $email= $this->getEmail();
-
+        echo $email;
+        
         $conn = Db::getInstance();
         $statement = $conn->prepare("select * from users where email = :email");
         $statement->bindValue(":email", $email);
         $statement->execute();
-        $e=$statement->fetch();
-        return $e;
+        $user=$statement->fetch();
+        return $user;
     }
  
+
     //insert new email in database
-    public function save_email(){
+    public function saveEmail(){
 
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("insert into users (email) values (:email)");
-
+        $userId = 19; //test
         $email_new = $this->getEmail_new();
 
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("update users set email = :email where id = :id");
+
         $statement->bindValue(":email", $email_new);
+        $statement->bindValue(":id", $userId);
 
         $result = $statement->execute();
 

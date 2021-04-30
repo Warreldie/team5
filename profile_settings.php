@@ -7,7 +7,7 @@
 
         $user->setBio($_POST['bio']);
 
-        //echo $user->getBio();
+        echo $user->getBio();
 
        // saves bio by executing a query in the database
         $user->save_bio();
@@ -55,8 +55,9 @@
     <form method="post" action>
         <label>Change Bio</label>
         <div><input name="bio" placeholder="Lorem ipsum dolor." type="text" size="90"/></div>
+        <button type="submit">Save</button>
     </form>
-    <button type="submit">Save</button>
+    
 
     <h3>Password</h3>
     <div><button type="button"><a href="password.php"> Change password </a></button></div>
