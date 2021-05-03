@@ -212,11 +212,17 @@ class Post{
     public function save()
     {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("insert into posts (user_id, post_text, post_image) values (4, :description, :filename);");
+        $statement = $conn->prepare("INSERT INTO posts (user_id, post_text, post_image) VALUES (4, :description, :filename);");
         $statement->bindValue(':filename', $this->filenamenew);
         $statement->bindValue(':description', $this->description);
 
         return $statement->execute();
+    }
+    public function getPosts(){
+        $conn = Db::getInstance();
+        $statement = $conn->query("SELECT post_image FROM posts WHERE user_id = 4"); 
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC); 
+        return $result;    
     }
 }
 ?>

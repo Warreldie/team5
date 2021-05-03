@@ -1,5 +1,8 @@
 <?php
-
+    include_once(__DIR__ . "../../team5/helpers/Security.php");
+    include_once(__DIR__ . "/classes/Post.php");
+    $post = new Post();
+    $results = $post->getPosts();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,8 +28,9 @@
         </li>
     </ul>
 
-    <img src="./images/image.jpg" class="img-fluid" alt="IMDTok-video">
-
+<?php foreach($results as $result): ?>
+    <img src="./content/<?php echo $result['post_image'] ?>" class="img-fluid" alt="IMDTok-video">
+<?php endforeach; ?>
     <ul class="navbar navbar-fixed-bottom navbar-inverse">
         <a class="nav-link text-white" href="#">Home</a>
         <a class="nav-link text-white" href="#">Discover</a>
