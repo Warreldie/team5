@@ -1,50 +1,41 @@
 <?php
 include_once(__DIR__ . "../../team5/helpers/Security.php");
 include_once(__DIR__ . "/classes/Post.php");
-//If you click on submi we will readout the picture
+//If you click on submit we will read out the picture
 if (isset($_POST["submit"])) {
     //Create a new post
     $post = new Post();
-
+    //Set all the things in the file to use them
     $post->setFile($_FILES["file"]);
     
     $post->setFilename($_FILES["file"]["name"]);
     $post->setFiletmpname($_FILES["file"]["tmp_name"]);
     $post->setFilesize($_FILES["file"]["size"]);
     $post->setFileerror($_FILES["file"]["error"]);
-
-    //We use the explode in the name to know the kind of document
-    //Explode happens now in post I have to do also the array and make a kind of function for the file if it is allowed?
-    $post->setFiletype($post->getFilename());
-    echo $post->getFilename();
-
-    $allowed = array("jpg", "jpeg", "png", "pdf");
-
-    //Looking of the type of document is allowed, if there was an error and if the filesize is not to big
-    if (in_array($post->getFilename(), $allowed)) {
-        if ($fileError === 0) {
-            if ($fileSize < 500000) {
-                //Placing the image in content map with unique id then you can find all the content at the project under team5/content => http://localhost/phples/team5/content/ 
-                $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                $fileDestination = "content/" . $fileNameNew;
-                move_uploaded_file($fileTmpName, $fileDestination);
-
-                //Set the fileName 
-                $post->setFilename($fileNameNew);
-
+    //If the image type is allowed we go further
+    if($post->allowed()){
+        //Looking if there was an error and if the filesize is not to big
+        if($post->getFileerror() === 0){
+            if($post->getFilesize() < 500000){
+                //Placing the image in content map with unique id then you can find all the content at team5/content => http://localhost/phples/team5/content/ 
+                $post->setFilenamenew();
+                $post->setFiledestination();
+                $post->move();
+                //Add the description to the post
+                $post->setDescription($_POST["description"]);
                 //Save the filename into post_image tabel in the databank
                 $post->save();
 
                 //Zet ook nog een succes-boodschap op één of andere manier
                 header("location: index.php?uploadsucces");
-            } else {
+            }else{
                 $error = "Your file was to big!";
             }
-        } else {
+        }else{
             $error = "There was an error uploading your file!";
         }
-    } else {
-        $error = "You can't upload files of this type!";
+    }else{
+        $error = "You can't upload files of this type!";   
     }
 }
 ?>
@@ -69,7 +60,7 @@ if (isset($_POST["submit"])) {
             </div>
             <?php endif; ?>
             <div class="mb-3">
-                <textarea class="form-control" placeholder="Description" required></textarea>
+                <textarea name="description" class="form-control" placeholder="Description" required></textarea>
             </div>
             <img src="./images/image.jpg" class="mb-3 img-fluid" alt="IMDTok-video">
             <div class="mb-3">
