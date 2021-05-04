@@ -1,0 +1,24 @@
+
+/* css for comment and like features*/
+.post {
+    font-family: Helvetica, sans-serif;
+    border: 4px solid #E8EAEC;
+    padding: 10px;
+    width: 600px;
+  }
+  
+  .post__comments__form {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+  }
+  
+  .btnAddCom {
+    background-color: #FD0B96;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+  }
+
+ 
