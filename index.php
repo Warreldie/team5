@@ -4,7 +4,9 @@
     $post = new Post();
     $results = $post->getPosts();
 
-
+    include_once(__DIR__ . "/classes/Comment.php");
+    $allComments = Comment::getAll(3);
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,14 +48,19 @@
                 <div class="post__comments__form">
                     <input type="text" id="commentText" placeholder="What's on your mind">
                     <a href="#" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</a>
-            </div>  
+                    <!-- need to print primary key from database into data-postid -->
+                </div>  
+            </div>
             
             <ul class="post__comments__list">
-                <li>This is a first comment</li>  
+                <?php foreach($allComments as $c): ?>
+                    <li><?php echo $c['text'] ?></li>  
+                <?php endforeach; ?>
             </ul>
+
         </div>
 
-
+        
         <ul class="navbar navbar-fixed-bottom navbar-inverse">
             <a class="nav-link text-white" href="#">Home</a>
             <a class="nav-link text-white" href="#">Discover</a>
