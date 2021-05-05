@@ -16,7 +16,7 @@ document.querySelector("#btnAddComment").addEventListener("click", function(){
         formData.append('postId', postId);
        
 
-        fetch("ajax/savecomment.php", { // Failed to load resource: the server responded with a status of 500 (Internal Server Erro
+        fetch("ajax/savecomment.php", {
             method: "POST",
             body: formData
         })

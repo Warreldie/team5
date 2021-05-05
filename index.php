@@ -54,7 +54,7 @@
             
             <ul class="post__comments__list">
                 <?php foreach($allComments as $c): ?>
-                    <li><?php echo $c['text'] ?></li>  
+                    <li><?php echo $c['text']. "<br>" .date('d M y'); ?></li>  
                 <?php endforeach; ?>
             </ul>
 
