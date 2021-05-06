@@ -65,8 +65,8 @@ include_once(__DIR__ . "/Db.php");
         public function save(){ 
 
             $text = $this->getText();
-            $postId = 3;
-            $userId = 20;
+            $postId = 3; //test
+            $userId = 20; //test
 
 
             $conn = Db::getInstance();
@@ -82,7 +82,8 @@ include_once(__DIR__ . "/Db.php");
         }
 
         // get all comments 
-        public static function getAll($postId){
+        public static function getAll(){
+            $postId = 3; //test
             
             $conn = Db::getInstance();
             $statement = $conn->prepare('select * from comments where post_id = :postId');

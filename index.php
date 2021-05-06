@@ -5,14 +5,28 @@
     $results = $post->getPosts();
 
     include_once(__DIR__ . "/classes/Comment.php");
-   
-        $comment = new Comment ();
-        $allComments = Comment::getAll(3); //test postId = 3
-        //$allComments = Comment::getTimeStamp();
+    
+    if (!empty($_POST)){
+
+        try {
+
+            $comment = new Comment ();
+            $comment->setText($_POST['comment']);
+            $comment->save();
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+            
+
+    }    
+        $allComments = Comment::getAll(); //test postId = 3
+        
+        $allComments = Comment::getTimeStamp();
 
         //$timeago = Comment::timeAgo($time);
-        $comment = new Comment ();
-        $ago = $comment->getTimeAgo();
+        
+        //$ago = $comment->getTimeAgo();
         
    
 ?>
@@ -46,6 +60,7 @@
                 <?php foreach($results as $result): ?>
                         <img src="./content/<?php echo $result['post_image'] ?>" class="img-fluid" alt="IMDTok-video">
 
+                <?php endforeach; ?>
                     
             <p class="likes">
                 <a href="#">Like</a>
@@ -54,9 +69,15 @@
         
             <div class="post__comments">
                 <div class="post__comments__form">
-                    <input type="text" id="commentText" placeholder="What's on your mind">
-                    <a href="#" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</a> 
+
+                    <form method="post" action>
+                    <input type="text" id="commentText" name="comment" placeholder="What's on your mind">
+                     <!-- <a href="#" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</a> -->
+
+                    <button type="submit" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</button>
                     <!-- need to print primary key from database into data-postid -->
+
+                    </form>
                 </div>  
             </div>
             
@@ -64,12 +85,12 @@
                 <?php foreach($allComments as $c): ?>
                     <li>
                         <?php echo $c['text']. "<br>"?>
-                        <?php echo $ago ?>
+                        <?php echo $c['timestamp']?>
+                        <?php //echo $ago ?>
                    </li>  
                 <?php endforeach; ?>
             </ul>
-
-            <?php endforeach; ?>
+         
         </div>
 
         
@@ -81,7 +102,7 @@
             <a class="nav-link text-white" href="#">Me</a>
         </ul>
 
-        <script src="comment.js"></script>
+       <script src="comment.js"></script>
 
     </body>
 
