@@ -5,7 +5,15 @@
     $results = $post->getPosts();
 
     include_once(__DIR__ . "/classes/Comment.php");
-    $allComments = Comment::getAll(3);
+   
+        $comment = new Comment ();
+        $allComments = Comment::getAll(3); //test postId = 3
+        //$allComments = Comment::getTimeStamp();
+
+        //$timeago = Comment::timeAgo($time);
+        $comment = new Comment ();
+        $ago = $comment->getTimeAgo();
+        
    
 ?>
 <!DOCTYPE html>
@@ -37,8 +45,8 @@
         <div class="post">
                 <?php foreach($results as $result): ?>
                         <img src="./content/<?php echo $result['post_image'] ?>" class="img-fluid" alt="IMDTok-video">
-                <?php endforeach; ?>
 
+                    
             <p class="likes">
                 <a href="#">Like</a>
                 <span id="likes__counter">2</span> people like this
@@ -47,17 +55,21 @@
             <div class="post__comments">
                 <div class="post__comments__form">
                     <input type="text" id="commentText" placeholder="What's on your mind">
-                    <a href="#" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</a>
+                    <a href="#" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</a> 
                     <!-- need to print primary key from database into data-postid -->
                 </div>  
             </div>
             
             <ul class="post__comments__list">
                 <?php foreach($allComments as $c): ?>
-                    <li><?php echo $c['text']. "<br>" .date('d M y'); ?></li>  
+                    <li>
+                        <?php echo $c['text']. "<br>"?>
+                        <?php echo $ago ?>
+                   </li>  
                 <?php endforeach; ?>
             </ul>
 
+            <?php endforeach; ?>
         </div>
 
         

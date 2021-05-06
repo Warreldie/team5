@@ -14,9 +14,10 @@ document.querySelector("#btnAddComment").addEventListener("click", function(){
 
         formData.append('text', text);
         formData.append('postId', postId);
+
        
 
-        fetch("ajax/savecomment.php", {
+         fetch("ajax/savecomment.php", { 
             method: "POST",
             body: formData
         })
@@ -30,10 +31,13 @@ document.querySelector("#btnAddComment").addEventListener("click", function(){
                     .querySelector(".post__comments__list")
                     .appendChild(newComment);
 
-                })
+            })
+
             .catch(error => {
                 console.error('Error:', error);
             });
+
+
     //answer
 
 
