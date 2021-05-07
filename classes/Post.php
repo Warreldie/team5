@@ -250,13 +250,35 @@ class Post
     public function saveTags()
     {
         $nospace = str_replace(' ', '', $this->getTags());
-        $tags = explode("#", $nospace);
-        for($i = 1; $i<count($tags); $i++) {
+        $nolower = explode("#", $nospace);
+        $j = 0;
+  
+        // Iterate loop to convert array
+        // elements into lowercase and 
+        // overwriting the original array
+        foreach( $nolower as $element ) { 
+            $nolower[$j] = strtolower($element);
+            $j++;
+        }
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT text FROM tags");
+        $statement->execute();
+        $tagsdb = $statement->fetchAll(PDO::FETCH_OBJ);
+            var_dump($tagsdb);
+            var_dump($nolower);
+            $exists = array_search($nolower, $tagsdb);
+            var_dump($exists);
+        //$exists = array_search("", $tagsdb);
+        //Function to see if tag already exists
+        //De tags id krijgen van de huidig die dat ik zal posten
+        //De tags ids saven samen met de post save
+        /*for($i = 1; $i<count($tags); $i++) {
             $conn = Db::getInstance();
             $statement = $conn->prepare("INSERT INTO tags (text) VALUES (:tag);");
             $statement->bindValue(":tag", $tags[$i]);
             $result = $statement->execute();
             var_dump($result);
-        }
+        }*/
     }
 }
