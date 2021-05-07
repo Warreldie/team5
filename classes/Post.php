@@ -1,6 +1,7 @@
 <?php include_once(__DIR__ . "/Db.php");
 
-class Post{
+class Post
+{
     protected $file;
     protected $filename;
     protected $filenamenew;
@@ -10,10 +11,11 @@ class Post{
     protected $filetype;
     protected $filedestination;
     protected $description;
+    protected $tags;
 
     /**
      * Get the value of file
-     */ 
+     */
     public function getFile()
     {
         return $this->file;
@@ -23,7 +25,7 @@ class Post{
      * Set the value of file
      *
      * @return  self
-     */ 
+     */
     public function setFile($file)
     {
         $this->file = $file;
@@ -33,7 +35,7 @@ class Post{
 
     /**
      * Get the value of filename
-     */ 
+     */
     public function getFilename()
     {
         return $this->filename;
@@ -43,7 +45,7 @@ class Post{
      * Set the value of filename
      *
      * @return  self
-     */ 
+     */
     public function setFilename($filename)
     {
         $this->filename = $filename;
@@ -52,7 +54,7 @@ class Post{
     }
     /**
      * Get the value of filenamenew
-     */ 
+     */
     public function getFilenamenew()
     {
         return $this->filenamenew;
@@ -62,7 +64,7 @@ class Post{
      * Set the value of filenamenew
      * By using new unique id based on time and in the back the filetype so we can use the filetype again
      * @return  self
-     */ 
+     */
     public function setFilenamenew()
     {
         $this->filenamenew = uniqid('', true) . "." . $this->getFiletype();
@@ -72,7 +74,7 @@ class Post{
 
     /**
      * Get the value of filetmpname
-     */ 
+     */
     public function getFiletmpname()
     {
         return $this->filetmpname;
@@ -82,7 +84,7 @@ class Post{
      * Set the value of filetmpname
      *
      * @return  self
-     */ 
+     */
     public function setFiletmpname($filetmpname)
     {
         $this->filetmpname = $filetmpname;
@@ -92,7 +94,7 @@ class Post{
 
     /**
      * Get the value of filesize
-     */ 
+     */
     public function getFilesize()
     {
         return $this->filesize;
@@ -102,7 +104,7 @@ class Post{
      * Set the value of filesize
      *
      * @return  self
-     */ 
+     */
     public function setFilesize($filesize)
     {
         $this->filesize = $filesize;
@@ -112,7 +114,7 @@ class Post{
 
     /**
      * Get the value of fileerror
-     */ 
+     */
     public function getFileerror()
     {
         return $this->fileerror;
@@ -122,7 +124,7 @@ class Post{
      * Set the value of fileerror
      *
      * @return  self
-     */ 
+     */
     public function setFileerror($fileerror)
     {
         $this->fileerror = $fileerror;
@@ -132,7 +134,7 @@ class Post{
 
     /**
      * Get the value of filetype
-     */ 
+     */
     public function getFiletype()
     {
         return $this->filetype;
@@ -142,7 +144,7 @@ class Post{
      * Set the value of filetype
      * The filetype we get from the back of the filename and we set it in lowercase
      * @return  self
-     */ 
+     */
     public function setFiletype()
     {
         $filetypeunfilterd = explode(".", $this->getFilename());
@@ -151,10 +153,10 @@ class Post{
 
         return $this;
     }
-    
+
     /**
      * Get the value of filedestination
-     */ 
+     */
     public function getFiledestination()
     {
         return $this->filedestination;
@@ -164,7 +166,7 @@ class Post{
      * Set the value of filedestination
      * In map content with the unique name
      * @return  self
-     */ 
+     */
     public function setFiledestination()
     {
         $this->filedestination =  "content/" . $this->getFilenamenew();
@@ -178,20 +180,21 @@ class Post{
         $this->setFiletype();
         $allowed = array("jpg", "jpeg", "png", "pdf");
 
-        if(in_array($this->getFiletype(), $allowed)){
+        if (in_array($this->getFiletype(), $allowed)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
     //Move the file from a folder from the customer to our folder on the server
-    public function move(){
+    public function move()
+    {
         move_uploaded_file($this->getFiletmpname(), $this->getFiledestination());
     }
-    
+
     /**
      * Get the value of description
-     */ 
+     */
     public function getDescription()
     {
         return $this->description;
@@ -201,10 +204,29 @@ class Post{
      * Set the value of description
      *
      * @return  self
-     */ 
+     */
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
+    }
+    /**
+     * Get the value of tags
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set the value of tags
+     *
+     * @return  self
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
 
         return $this;
     }
@@ -218,11 +240,23 @@ class Post{
 
         return $statement->execute();
     }
-    public function getPosts(){
+    public function getPosts()
+    {
         $conn = Db::getInstance();
-        $statement = $conn->query("SELECT post_image FROM posts WHERE user_id = 4"); 
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC); 
-        return $result;    
+        $statement = $conn->query("SELECT post_image FROM posts WHERE user_id = 4");
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function saveTags()
+    {
+        $nospace = str_replace(' ', '', $this->getTags());
+        $tags = explode("#", $nospace);
+        for($i = 1; $i<count($tags); $i++) {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("INSERT INTO tags (text) VALUES (:tag);");
+            $statement->bindValue(":tag", $tags[$i]);
+            $result = $statement->execute();
+            var_dump($result);
+        }
     }
 }
-?>
