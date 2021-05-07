@@ -1,5 +1,6 @@
-document.querySelector("#btnAddComment").addEventListener("click", function(){
+document.querySelector("#btnAddComment").addEventListener("click", function(e){
         //alert("hi!"); //test
+    e.preventDefault();
 
     //postid?           ok
     //comment text?     ok
@@ -32,11 +33,11 @@ document.querySelector("#btnAddComment").addEventListener("click", function(){
                     .appendChild(newComment);
 
             })
-
+            
             .catch(error => {
                 console.error('Error:', error);
             });
-
+             
 
     //answer
 

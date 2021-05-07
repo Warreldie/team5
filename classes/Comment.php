@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . "/Db.php");
+include_once(__DIR__ ."/Db.php");
 
     class Comment{
         protected $text;
@@ -130,99 +130,25 @@ include_once(__DIR__ . "/Db.php");
         }
 
         //https://stackoverflow.com/questions/1416697/converting-timestamp-to-time-ago-in-php-e-g-1-day-ago-2-days-ago
-        /*public static function timeSincePost($time) {
-            $now = new DateTime;
-            $ago = new DateTime($time);
-            $diff = $now->diff($ago);
-        
-            $diff->w = floor($diff->d / 7);
-            $diff->d -= $diff->w * 7;
-        
-            $string = array(
-                'y' => 'year',
-                'm' => 'month',
-                'w' => 'week',
-                'd' => 'day',
-                'h' => 'hour',
-                'i' => 'minute',
-                's' => 'second',
-            );
-
-            foreach ($string as $k => &$v) {
-                if ($diff->$k) {
-                    $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-                } else {
-                    unset($string[$k]);
-                }
-            }
-        
-            $string = array_slice($string, 0, 1);
-            return $string ? implode(', ', $string) . ' ago' : 'just now';
-            
-        }*/
-
         //https://css-tricks.com/snippets/php/time-ago-function/
-       /* public static function timeAgo($time){
-            $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
-            $lengths = array("60","60","24","7","4.35","12","10");
+   
 
+       /* public function timeDiff(){
             
+            $now = new DateTime();
+            $time = $this->getTime();
+
+            // convert to unix timestamps
+            $time=strtotime($time);
+            $now=strtotime($now);
             
-        //  $now = new DateTime;
-        //  $ago = $time;
-        //  $difference= $now->diff($ago);
+            // perform subtraction to get the difference (in seconds) between times
+            $timeDiff=$now-$time;
             
-            $now = time();
-
-            $difference = $now - $time;
-               
-
-            for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {
-                $difference /= $lengths[$j];
-            }
-
-            $difference = round($difference);
-
-            if($difference != 1) {
-                $periods[$j].= "s";
-            }
-
-            return "$difference $periods[$j]";
-            }
+            // return the difference
+            return $timeDiff;
+        }
         */
-
-        //https://www.w3schools.in/php-script/time-ago-function/
-        public function getTimeAgo(){
-            
-            $time= $this->getTime();
-            $time_difference = time() - $time;
-
-            if( $time_difference < 1 ) { return 'less than 1 second ago'; }
-            $condition = array( 12 * 30 * 24 * 60 * 60 =>  'year',
-                        30 * 24 * 60 * 60       =>  'month',
-                        24 * 60 * 60            =>  'day',
-                        60 * 60                 =>  'hour',
-                        60                      =>  'minute',
-                        1                       =>  'second'
-            );
-
-            foreach( $condition as $secs => $str ){
-                $d = $time_difference / $secs;
-
-                if( $d >= 1 )
-                {
-                    $t = round( $d );
-                    return 'about ' . $t . ' ' . $str . ( $t > 1 ? 's' : '' ) . ' ago';
-                }
-            }
-        }       
-
-
-
-
-
-
-
 
 
 

@@ -1,31 +1,17 @@
 <?php
-    include_once(__DIR__ . "../../team5/helpers/Security.php");
+
+    include_once(__DIR__ . "../../team5/helpers/Security.php"); //team5 eruit halen
     include_once(__DIR__ . "/classes/Post.php");
     $post = new Post();
     $results = $post->getPosts();
 
     include_once(__DIR__ . "/classes/Comment.php");
-    
-    if (!empty($_POST)){
-
-        try {
-
-            $comment = new Comment ();
-            $comment->setText($_POST['comment']);
-            $comment->save();
-
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-            
-
-    }    
+       
         $allComments = Comment::getAll(); //test postId = 3
         
-        $allComments = Comment::getTimeStamp();
+        //$allComments = Comment::getTimeStamp();
 
-        //$timeago = Comment::timeAgo($time);
-        
+        $comment = new Comment;
         //$ago = $comment->getTimeAgo();
         
    
@@ -85,7 +71,7 @@
                 <?php foreach($allComments as $c): ?>
                     <li>
                         <?php echo $c['text']. "<br>"?>
-                        <?php echo $c['timestamp']?>
+                        <?php //echo $c['timestamp']?>
                         <?php //echo $ago ?>
                    </li>  
                 <?php endforeach; ?>
