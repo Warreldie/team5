@@ -68,17 +68,25 @@ include_once(__DIR__ ."/Db.php");
             $postId = 3; //test
             $userId = 20; //test
 
+                    //echo "We geraken in de save";
 
-            $conn = Db::getInstance();
+            $db_name = "imdtok";
+            $db_user = "root";
+            $db_password = "root";
+            $db_host = "localhost";
+
+            //$conn = Db::getInstance();
+            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
             $statement = $conn->prepare("insert into comments (text, post_id, user_id) values (:text, :postId, :userId)");
 
             $statement->bindValue(":text", $text);
             $statement->bindValue(":postId", $postId);
             $statement->bindValue(":userId", $userId);
 
+                    //echo "We geraken voorbij de connectie";
+
             $result = $statement->execute();
             return $result;
-
         }
 
         // get all comments 
@@ -127,32 +135,24 @@ include_once(__DIR__ ."/Db.php");
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $result;
+
+           
+
+
         }
 
-        //https://stackoverflow.com/questions/1416697/converting-timestamp-to-time-ago-in-php-e-g-1-day-ago-2-days-ago
-        //https://css-tricks.com/snippets/php/time-ago-function/
+        
    
+        //https://stackoverflow.com/questions/15688775/php-find-difference-between-two-datetimes
 
-       /* public function timeDiff(){
-            
+        public function timeDiff(){
+
             $now = new DateTime();
-            $time = $this->getTime();
-
-            // convert to unix timestamps
-            $time=strtotime($time);
-            $now=strtotime($now);
-            
-            // perform subtraction to get the difference (in seconds) between times
-            $timeDiff=$now-$time;
-            
-            // return the difference
-            return $timeDiff;
+            $past = new DateTime('2011-01-03 17:13:00');
+            $interval = $now->diff($past);
+            $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+            echo $elapsed;
         }
-        */
-
-
-
-
 
 
 

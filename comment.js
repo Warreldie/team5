@@ -1,6 +1,6 @@
 document.querySelector("#btnAddComment").addEventListener("click", function(e){
         //alert("hi!"); //test
-    e.preventDefault();
+        e.preventDefault();
 
     //postid?           ok
     //comment text?     ok

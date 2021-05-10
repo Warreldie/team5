@@ -50,7 +50,7 @@
 
     <h3>Bio</h3>
         <?php foreach($user as $u): ?>
-            <p><?php echo $u["bio"]; ?></p>
+            <p><?php echo htmlspecialchars($u["bio"]); ?></p> <!-- preventing XSS attack  -->
         <?php endforeach; ?>
 
     <form method="post" action>

@@ -1,20 +1,29 @@
 <?php
+    //session start with username in it
+    session_start();
 
-    include_once(__DIR__ . "../../team5/helpers/Security.php"); //team5 eruit halen
-    include_once(__DIR__ . "/classes/Post.php");
-    $post = new Post();
-    $results = $post->getPosts();
+    if(isset ($_SESSION['user'])){
+        //user is logged in
+        echo "Welcome " . $_SESSION['user'];
+    
 
-    include_once(__DIR__ . "/classes/Comment.php");
-       
-        $allComments = Comment::getAll(); //test postId = 3
+        //include_once(__DIR__ . "/helpers/Security.php"); 
+        include_once(__DIR__ . "/classes/Post.php");
+            $post = new Post();
+            $results = $post->getPosts();
+
+        include_once(__DIR__ . "/classes/Comment.php");
+            $allComments = Comment::getAll(); //test postId = 3
         
-        //$allComments = Comment::getTimeStamp();
+            $c = new Comment;
+            $c->timeDiff();
 
-        $comment = new Comment;
-        //$ago = $comment->getTimeAgo();
-        
+    }else{
+        //user not logged in -> redirect
+        header("Location: login.php");
+    }
    
+        
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +66,7 @@
                 <div class="post__comments__form">
 
                     <form method="post" action>
-                    <input type="text" id="commentText" name="comment" placeholder="What's on your mind">
+                    <input type="text" id="commentText" name="commentText" placeholder="What's on your mind">
                      <!-- <a href="#" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</a> -->
 
                     <button type="submit" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</button>
@@ -70,7 +79,7 @@
             <ul class="post__comments__list">
                 <?php foreach($allComments as $c): ?>
                     <li>
-                        <?php echo $c['text']. "<br>"?>
+                        <?php echo htmlspecialchars($c['text']). "<br>"?>  <!-- preventing XSS attack  -->
                         <?php //echo $c['timestamp']?>
                         <?php //echo $ago ?>
                    </li>  
@@ -85,7 +94,7 @@
             <a class="nav-link text-white" href="#">Discover</a>
             <a class="nav-link text-white" href="upload.php">New</a>
             <a class="nav-link text-white" href="#">Inbox</a>
-            <a class="nav-link text-white" href="#">Me</a>
+            <a class="nav-link text-white" href="profile.php">Me</a>
         </ul>
 
        <script src="comment.js"></script>

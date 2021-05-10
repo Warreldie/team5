@@ -1,13 +1,13 @@
 <?php
 
 include_once(__DIR__ . "/../classes/Comment.php");
-
+include_once(__DIR__ . "/../classes/Db.php");
 
    
     if(!empty($_POST)){
         //new comment
         $c = new Comment();
-        $c->setPostId(3);
+        $c->setPostId(3); // test, use data from $_SESSION
         $c->setText($_POST['text']);
         $c->setUserId(20); // test, use data from $_SESSION
 
