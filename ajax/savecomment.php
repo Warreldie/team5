@@ -1,7 +1,7 @@
 <?php
-
-include_once(__DIR__ . "/../classes/Comment.php");
 include_once(__DIR__ . "/../classes/Db.php");
+include_once(__DIR__ . "/../classes/Comment.php");
+
 
    
     if(!empty($_POST)){
