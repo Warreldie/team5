@@ -25,7 +25,9 @@ if (isset($_POST["submit"])) {
                 $post->setDescription($_POST["description"]);
                 //Save the filename into post_image tabel in the databank
                 $post->save();
-
+                //Get the tags and save them in tags table + save tags_id with post_id in posts_tags table
+                $post->setTags($_POST["tags"]);
+                $post->saveTags();
                 //Zet ook nog een succes-boodschap op één of andere manier
                 header("location: index.php?uploadsucces");
             }else{
@@ -61,6 +63,9 @@ if (isset($_POST["submit"])) {
             <?php endif; ?>
             <div class="mb-3">
                 <textarea name="description" class="form-control" placeholder="Description" required></textarea>
+            </div>
+            <div class="mb-3">
+                <textarea name="tags" class="form-control" placeholder="Tag"></textarea>
             </div>
             <img src="./images/image.jpg" class="mb-3 img-fluid" alt="IMDTok-video">
             <div class="mb-3">
