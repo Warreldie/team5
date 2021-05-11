@@ -4,7 +4,7 @@
 
     if(isset ($_SESSION['user'])){
         //user is logged in
-        echo "Welcome " . $_SESSION['user'];
+        //echo "Welcome " . $_SESSION['user'];
     
 
         //include_once(__DIR__ . "/helpers/Security.php"); 
@@ -13,10 +13,22 @@
             $results = $post->getPosts();
 
         include_once(__DIR__ . "/classes/Comment.php");
+        
+            $comment = new Comment();
             $allComments = Comment::getAll(); //test postId = 3
         
-            $c = new Comment;
-            $c->timeDiff();
+            
+            $timeAgo = $comment->getTimeStamp();
+            
+                // time to time ago
+                $now = new DateTime();
+                $past = new DateTime($timeAgo['timestamp']); 
+
+                    $interval = $now->diff($past);
+                    
+
+                    $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+                   
 
     }else{
         //user not logged in -> redirect
@@ -78,12 +90,16 @@
             
             <ul class="post__comments__list">
                 <?php foreach($allComments as $c): ?>
+                    
                     <li>
-                        <?php echo htmlspecialchars($c['text']). "<br>"?>  <!-- preventing XSS attack  -->
-                        <?php //echo $c['timestamp']?>
-                        <?php //echo $ago ?>
+                        <?php echo htmlspecialchars($c['text']). "<br>";?>  <!-- preventing XSS attack  -->
+                        <?php echo $elapsed; ?>
                    </li>  
+                   
                 <?php endforeach; ?>
+                   
+
+                
             </ul>
          
         </div>
