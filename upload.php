@@ -23,13 +23,13 @@ if (isset($_POST["submit"])) {
                 $post->move();
                 //Add the description to the post
                 $post->setDescription($_POST["description"]);
-                $post->setTags($_POST["tags"]);
-                $post->saveTags();
                 //Save the filename into post_image tabel in the databank
                 $post->save();
-
+                //Get the tags and save them in tags table + save tags_id with post_id in posts_tags table
+                $post->setTags($_POST["tags"]);
+                $post->saveTags();
                 //Zet ook nog een succes-boodschap op één of andere manier
-                //header("location: index.php?uploadsucces");
+                header("location: index.php?uploadsucces");
             }else{
                 $error = "Your file was to big!";
             }

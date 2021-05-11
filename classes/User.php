@@ -358,15 +358,5 @@ class User
         $user = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $user;
 
-    }
-
-
-
-
-
-
-
-
-
-    
+    }   
 }

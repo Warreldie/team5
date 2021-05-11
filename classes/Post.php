@@ -12,6 +12,7 @@ class Post
     protected $filedestination;
     protected $description;
     protected $tags;
+    protected $id;
 
     /**
      * Get the value of file
@@ -230,7 +231,30 @@ class Post
 
         return $this;
     }
-    //We save all the information in the database
+    
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of post_id to the current post_id from looking at the current filename with special id and timestamp
+     *
+     * @return  self
+     */ 
+    public function setId()
+    {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT id FROM posts WHERE post_image = :filename");
+        $statement->bindValue(':filename', $this->filenamenew);
+        $statement->execute();
+        $this->id = $statement->fetch()["id"];
+        return $this;
+    }
+    //We save all the information from the post in the database
     public function save()
     {
         $conn = Db::getInstance();
@@ -240,6 +264,7 @@ class Post
 
         return $statement->execute();
     }
+    //Get the post image
     public function getPosts()
     {
         $conn = Db::getInstance();
@@ -247,38 +272,52 @@ class Post
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    //Saving the tags in the database
     public function saveTags()
     {
+        // Move all the spaces away
         $nospace = str_replace(' ', '', $this->getTags());
         $nolower = explode("#", $nospace);
         $j = 0;
-  
+
         // Iterate loop to convert array
         // elements into lowercase and 
         // overwriting the original array
-        foreach( $nolower as $element ) { 
+        foreach ($nolower as $element) {
             $nolower[$j] = strtolower($element);
             $j++;
         }
-
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT text FROM tags");
-        $statement->execute();
-        $tagsdb = $statement->fetchAll(PDO::FETCH_OBJ);
-            var_dump($tagsdb);
-            var_dump($nolower);
-            $exists = array_search($nolower, $tagsdb);
-            var_dump($exists);
-        //$exists = array_search("", $tagsdb);
-        //Function to see if tag already exists
-        //De tags id krijgen van de huidig die dat ik zal posten
-        //De tags ids saven samen met de post save
-        /*for($i = 1; $i<count($tags); $i++) {
+        foreach ($nolower as $element) {
+            //This looks if certain tags already exist or not
             $conn = Db::getInstance();
-            $statement = $conn->prepare("INSERT INTO tags (text) VALUES (:tag);");
-            $statement->bindValue(":tag", $tags[$i]);
-            $result = $statement->execute();
-            var_dump($result);
-        }*/
+            $statement = $conn->prepare("select * from tags where text = :text");
+            $statement->bindValue(":text", $element);
+            $statement->execute();
+            $result = $statement->fetch();
+
+            if (!$result && !($element == "")) {
+                //This puts the new tags in the databank
+                $statement = $conn->prepare("INSERT INTO tags (text) VALUES (:tag);");
+                $statement->bindValue(":tag", $element);
+                $result = $statement->execute();
+            } else {
+                //Tag already exist
+            }
+            if (!($element == "")) {
+                //Get the tags id
+                $statement = $conn->prepare("select id from tags where text = :text");
+                $statement->bindValue(":text", $element);
+                $statement->execute();
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                //Save tags_id and post_id in the table post_tags
+                $tagId = $result[0]["id"];
+                $this->setId();
+                $postId = $this->getId();
+                $statement = $conn->prepare("INSERT into posts_tags (post_id, tag_id) VALUES (:postId, :tagId)");
+                $statement->bindValue(":postId", $postId);
+                $statement->bindValue(":tagId", $tagId);
+                $result = $statement->execute();
+            }
+        }
     }
 }
