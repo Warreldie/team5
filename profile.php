@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once(__DIR__ . "/User.php");
+    //include_once(__DIR__ . "/User.php");
 
 
 ?><!DOCTYPE html>

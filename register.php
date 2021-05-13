@@ -18,7 +18,7 @@ if (!empty($_POST)) {
 
         // start a session and redirect the user to index.php
         session_start();
-        $_SESSION['user'] = $user->getEmail();
+        $_SESSION['user'] = $user->getUsername();
         header("Location: index.php");
     } catch (Throwable $error) {
         // if any errors are thrown in the class, they can be caught here
@@ -39,7 +39,7 @@ if (!empty($_POST)) {
 
 <body>
     <div class="container">
-        <h1>Aanmelden</h1>
+        <h1>Register</h1>
         <form id="register" method="POST" action="">
             <?php if (isset($error)) : ?>
                 <div class="alert alert-danger"><?php echo $error; ?></div>
@@ -65,7 +65,7 @@ if (!empty($_POST)) {
                 <input type="email" name="email" class="form-control" placeholder="Email" id="InputEmail" required>
             </div>
             <div class="mb-3 d-grid gap-2">
-                <button type="submit" class="btn btn-danger">Aanmelden</button>
+                <button type="submit" class="btn btn-danger">Register</button>
             </div>
         </form>
     </div>

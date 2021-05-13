@@ -7,6 +7,7 @@ class User
     protected $password;
     protected $date_of_birth;
     protected $email;
+    protected $userId;
 
     /**
      * Get the value of username
@@ -359,4 +360,37 @@ class User
         return $user;
 
     }   
+    /**
+     * Get the value of userId
+     */ 
+    public function getUserId($x)
+    {
+        if(strpos($x, '@') && strpos($x, '.com')){
+            $db_name = "imdtok";
+            $db_user = "root";
+            $db_password = "";
+            $db_host = "localhost";
+            //$conn = Db::getInstance(); ===> doesn't work
+            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $statement = $conn->prepare('select id from users where email = :email');
+            $statement->bindValue(":email", $x);
+            $statement->execute();
+            $user = $statement->fetchAll();
+            return $user;
+        }else{
+            $db_name = "imdtok";
+            $db_user = "root";
+            $db_password = "";
+            $db_host = "localhost";
+            //$conn = Db::getInstance(); ===> doesn't work
+            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $statement = $conn->prepare('select id from users where username = :username');
+            $statement->bindValue(":username", $x);
+            $statement->execute();
+            $user = $statement->fetchAll();
+            return $user;
+        }
+
+        return $this->userId;
+    }
 }
