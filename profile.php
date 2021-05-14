@@ -12,7 +12,7 @@
     <title>profile</title>
 </head>
 <body>
-    
+<a href="index.php"> <- back </a>
     <h1>John Doe</h1>
 
     <p>Lorem ipsum dolor sit amet, ut enim ad minim veniam.</p>

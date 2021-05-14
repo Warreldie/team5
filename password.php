@@ -1,5 +1,8 @@
 <?php
 
+//session start with username in it
+    session_start();
+
 include_once(__DIR__ . "/helpers/Security.php");
 
 

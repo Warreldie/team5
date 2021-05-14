@@ -268,7 +268,7 @@ class Post
     public function getPosts()
     {
         $conn = Db::getInstance();
-        $statement = $conn->query("SELECT post_image FROM posts WHERE user_id = 4");
+        $statement = $conn->query("SELECT * FROM posts WHERE user_id = 4");
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

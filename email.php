@@ -1,5 +1,6 @@
 <?php
 include_once(__DIR__ . "/helpers/Security.php");
+session_start();
 
 if (!empty($_POST)){
 
@@ -7,6 +8,7 @@ if (!empty($_POST)){
         include_once(__DIR__ . "/classes/User.php");
         $user=new User();
         $user->setEmail($_POST["email"]);
+        
 
 
         //checks if email matches email from databank

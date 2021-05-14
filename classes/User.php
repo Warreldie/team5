@@ -368,7 +368,7 @@ class User
         if(strpos($x, '@') && strpos($x, '.com')){
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "";
+            $db_password = "root";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -380,7 +380,7 @@ class User
         }else{
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "";
+            $db_password = "root";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);

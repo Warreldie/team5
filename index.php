@@ -15,7 +15,7 @@
         include_once(__DIR__ . "/classes/Comment.php");
         
             $comment = new Comment();
-            $allComments = Comment::getAll(); //test postId = 3
+            //test postId = 3
         
             
             $timeAgo = $comment->getTimeStamp();
@@ -28,6 +28,8 @@
                     
 
                     $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+
+            
                    
 
     }else{
@@ -62,12 +64,16 @@
             </li>
         </ul>
 
+    <?php foreach($results as $result): 
+        
+        var_dump($result);
+        ?>
 
         <div class="post">
-                <?php foreach($results as $result): ?>
+                
                         <img src="./content/<?php echo $result['post_image'] ?>" class="img-fluid" alt="IMDTok-video">
 
-                <?php endforeach; ?>
+                
                     
             <p class="likes">
                 <a href="#">Like</a>
@@ -79,9 +85,9 @@
 
                     <form method="post" action>
                     <input type="text" id="commentText" name="commentText" placeholder="What's on your mind">
-                     <!-- <a href="#" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</a> -->
+                     
 
-                    <button type="submit" class="btnAddCom" id="btnAddComment" data-postid="3">Add comment</button>
+                    <button type="submit" class="btnAddCom" id="btnAddComment" data-postid="<?php echo $result["id"] ?>">Add comment</button>
                     <!-- need to print primary key from database into data-postid -->
 
                     </form>
@@ -89,21 +95,20 @@
             </div>
             
             <ul class="post__comments__list">
+
+           <?php $allComments = Comment::getAllFromId($result["id"]); ?>
                 <?php foreach($allComments as $c): ?>
                     
                     <li>
                         <?php echo htmlspecialchars($c['text']). "<br>";?>  <!-- preventing XSS attack  -->
-                        <?php echo $elapsed; ?>
+                        <?php //echo $elapsed; ?>
                    </li>  
                    
-                <?php endforeach; ?>
-                   
-
-                
+            <?php endforeach; ?>
             </ul>
          
         </div>
-
+    <?php endforeach; ?>    
         
         <ul class="navbar navbar-fixed-bottom navbar-inverse">
             <a class="nav-link text-white" href="#">Home</a>
