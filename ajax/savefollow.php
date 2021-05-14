@@ -11,7 +11,6 @@ if (!empty($_POST)) {
     $user = new User();
     $userid = $user->getUserId($_SESSION["user"]);
     $following->setFollower($userid[0]["id"]);
-
     //if following and follower isn't active
     $active = $following->active();
     if ($active) {
