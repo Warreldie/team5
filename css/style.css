@@ -2,8 +2,7 @@
 /* css for comment and like features*/
 .post {
     font-family: Helvetica, sans-serif;
-    border: 4px solid #E8EAEC;
-    padding: 10px;
+    border: 1px solid #E8EAEC;
     width: 600px;
   }
   
