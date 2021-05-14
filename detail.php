@@ -6,7 +6,7 @@ session_start();
     //new following
     $following = new Follow();
     //Number 15 has to be replaced with a nubre from the url
-    $following->setFollow(16);
+    $following->setFollow(11);
 
     //get Follower
     $user = new User();
@@ -21,6 +21,8 @@ session_start();
     }else{
         $text = "Follow";
     }
+    $countfollowing = $following->CountFollowing();
+    echo $countfollowing;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +48,7 @@ session_start();
         </div>
         <div class="mb-3 row justify-content-center">
             <div class="mb-3 col-3">
-                <p class="row justify-content-center fw-bold" id="txtFollowing">150</p>
+                <p class="row justify-content-center fw-bold" id="txtFollowing"><?php echo $countfollowing ?></p>
                 <p class="row justify-content-center">Following</p>
             </div>
             <div class="mb-3 col-3">
@@ -61,7 +63,7 @@ session_start();
         <form id="follow" method="POST" action="">
             <div class="mb-3 d-grid gap-2">
                 <!-- The data-userid has to come from the url -->
-                <button type="submit" class="btn btn-danger" id="btnFollow" data-userid="16"><?php echo $text ?></button>
+                <button type="submit" class="btn btn-danger" id="btnFollow" data-userid="11"><?php echo $text ?></button>
             </div>
         </form>
         <div class="mb-3">
