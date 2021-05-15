@@ -1,8 +1,6 @@
 <?php
 include_once(__DIR__ . "/../classes/Db.php");
 include_once(__DIR__ . "/../classes/Comment.php");
-
-
    
     if(!empty($_POST)){
         //new comment
@@ -10,12 +8,8 @@ include_once(__DIR__ . "/../classes/Comment.php");
         $c->setPostId($_POST['postId']); // test, use data from $_SESSION
         $c->setText($_POST['text']);
         $c->setUserId(20); // test, use data from $_SESSION
-
-    
-
         //save()
         $c->save();
-
         //success message
         $response = [
             'status' => 'success',
@@ -23,10 +17,8 @@ include_once(__DIR__ . "/../classes/Comment.php");
             'message' => 'Comment saved'
 
         ];
-
         header('Content-Type: application/json');
         echo json_encode($response); // giving back json data by encoding the php array
-
     }
 
 ?>

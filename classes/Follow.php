@@ -49,7 +49,7 @@ include_once(__DIR__ ."/Db.php");
         public function save(){
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -68,7 +68,7 @@ include_once(__DIR__ ."/Db.php");
         public function exist(){
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -85,7 +85,7 @@ include_once(__DIR__ ."/Db.php");
         public function active(){
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -103,7 +103,7 @@ include_once(__DIR__ ."/Db.php");
         public function UnFollow(){
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -119,7 +119,7 @@ include_once(__DIR__ ."/Db.php");
         public function Following(){
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -135,7 +135,7 @@ include_once(__DIR__ ."/Db.php");
         public function CountFollowing(){
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
