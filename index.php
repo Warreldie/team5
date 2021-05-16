@@ -41,9 +41,9 @@ if (isset($_SESSION['user'])) {
     <title>IMDtok - Feed</title>
 </head>
 
-<body class="bg-dark text-white">
+<body class="feed bg-dark text-white">
     <!-- navbar top ==> fixed-top class -->
-    <div class="navbar bg-dark justify-content-center">
+    <div class="navbar fixed-top  bg-dark justify-content-center">
         <div class="container-fluid">
             <a class="nav-link text-white" href="#">Following</a>
             <a class="nav-link text-white" href="#">For You</a>
