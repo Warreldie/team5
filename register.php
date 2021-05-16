@@ -35,10 +35,11 @@ if (!empty($_POST)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aanmelden</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
+    <main class="register container">
         <h1>Register</h1>
         <form id="register" method="POST" action="">
             <?php if (isset($error)) : ?>
@@ -68,7 +69,7 @@ if (!empty($_POST)) {
                 <button type="submit" class="btn btn-danger">Register</button>
             </div>
         </form>
-    </div>
+    </main>
     <script src="app.js"></script>
 </body>
 
