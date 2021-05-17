@@ -179,7 +179,7 @@ class User
         
         $password = $this->getPassword();
 
-        $userId = 20; //test
+        $userId = 18; //test
         
         // $email = $_SESSION["user"];
         //var_dump($_SESSION);
@@ -205,7 +205,7 @@ class User
     //also contains password_hash
     public function savePassword(){
 
-        $userId = 20; //test
+        $userId = 18; //test
         $password_new = $this->getPassword_new();
 
         $options = [
@@ -269,7 +269,7 @@ class User
     //insert new email in database
     public function saveEmail(){
 
-        $userId = 20; //test
+        $userId = 18; //test
         $email_new = $this->getEmail_new();
 
         $conn = Db::getInstance();
@@ -285,7 +285,7 @@ class User
 
     public static function getAllEmail(){
         
-        $userId = 20; //test
+        $userId = 18; //test
         $conn = Db::getInstance();
 
         $statement = $conn->prepare('select * from users where id = :id');
@@ -320,7 +320,7 @@ class User
    //insert bio in database
     public function saveBio(){
 
-        $userId = 20; //test
+        $userId = 18; //test
         $bio = $this->getBio();
 
         //conn
@@ -349,7 +349,7 @@ class User
     }
 
     public static function getAllName(){
-        $userId = 20; //test
+        $userId = 18; //test
         $conn = Db::getInstance();
 
         $statement = $conn->prepare('select * from users where id = :id');

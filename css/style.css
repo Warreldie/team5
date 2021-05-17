@@ -18,3 +18,38 @@
     padding: 15px;
     margin: auto;
 }
+.change{
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    padding-top: 5em;
+    margin: auto;
+}
+.profile{
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    padding-top: 5em;
+    margin: auto;
+}
+.email{
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    padding-top: 5em;
+    margin: auto;
+}
+.password{
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    padding-top: 5em;
+    margin: auto;
+}
+.image{
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    padding-top: 5em;
+    margin: auto;
+}

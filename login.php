@@ -36,7 +36,7 @@ if (!empty($_POST)) {
 
 <body>
     <main class="sign-in container">
-        <h1>Sign In</h1>
+        <h1>Log In</h1>
         <form id="login" method="POST" action="">
             <?php if (isset($error)) : ?>
                 <div class="alert alert-danger"><?php echo $error; ?></div>
@@ -53,7 +53,9 @@ if (!empty($_POST)) {
                 <label for="InputPassword" class="form-label">Password</label>
                 <input name="password" placeholder="Password" type="password" class="form-control" required />
             </div>
-
+            <div class="mb-3 text-center">
+                <a href="register.php">Or Register</a>
+            </div>
             <div class="mb-3 d-grid gap-2">
                 <button name="login" type="submit" class="btn btn-danger" value="Log in">Log In</button>
             </div>

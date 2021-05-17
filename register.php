@@ -33,7 +33,7 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aanmelden</title>
+    <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -64,6 +64,9 @@ if (!empty($_POST)) {
             <div class="mb-3">
                 <label for="InputEmail" class="form-label">Email address</label>
                 <input type="email" name="email" class="form-control" placeholder="Email" id="InputEmail" required>
+            </div>
+            <div class="mb-3 text-center">
+                <a href="login.php">Or Log In</a>
             </div>
             <div class="mb-3 d-grid gap-2">
                 <button type="submit" class="btn btn-danger">Register</button>
