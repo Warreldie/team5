@@ -7,6 +7,7 @@ class User
     protected $password;
     protected $date_of_birth;
     protected $email;
+    protected $userId;
 
     /**
      * Get the value of username
@@ -93,7 +94,7 @@ class User
         $options = [
             'cost' => 15
         ];
-        $hashpassword = password_hash($this->password, PASSWORD_DEFAULT, $options);
+        $password = password_hash($this->password, PASSWORD_DEFAULT, $options);
 
         $conn = Db::getInstance();
         $statement = $conn->prepare("insert into users (username, password, date_of_birth, email) values (:username, :password, :date_of_birth, :email);");
@@ -122,7 +123,7 @@ class User
         $result = $statement->fetchAll(PDO::FETCH_COLUMN);
         return $result;
     }
-    /*
+    
 
     public function canLogin($email, $password){
         //this function checks if a user can login
@@ -136,17 +137,260 @@ class User
         $user = $statement->fetch();
         $hash = $user["password"];
 
-        if (!$user) {
+        if (!$user){
             throw new Exception("Email and/or password is wrong");
         }
 
         // password_verify() verifies the user
         // this function returns true or false
-        if (password_verify($password, $hash)) {
+        if (password_verify($password, $hash)){
             return true;
         } else {
             return false;
         }
-    }*/
+    }
+
+
+    //setters and getters for feature 5 (changing password)
+    protected $password_new;
+
+    /**
+     * Get the value of new password
+     */ 
+    public function getPassword_new(){
+        return $this->passsword_new;
+    }
+
+     /**
+     * Set the value of new password
+     *
+     * @return  self
+     */ 
+    public function setPassword_new($password_new){
+        $this->passsword_new = $password_new;
+
+        return $this;
+    }
     
+
+    
+    //checks if the current password = password from database
+    public function checkPassword(){
+        
+        $password = $this->getPassword();
+
+        $userId = 18; //test
+        
+        // $email = $_SESSION["user"];
+        //var_dump($_SESSION);
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from users where id = :id");
+        $statement->bindValue(":id", $userId);
+        $statement->execute();
+        $user = $statement->fetch();
+        $hash = $user["password"];
+    
+    
+        if (password_verify($password, $hash)){
+            return true;
+            
+        } else {
+            return false;
+        }
+    }
+
+
+    //insert new password in database
+    //also contains password_hash
+    public function savePassword(){
+
+        $userId = 18; //test
+        $password_new = $this->getPassword_new();
+
+        $options = [
+			'cost' => 12,
+		];
+		$password_new = password_hash($this->password_new, PASSWORD_DEFAULT, $options);
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("update users set password = :password where id = :id");
+
+        $statement->bindValue(":password", $password_new);
+        $statement->bindValue(":id", $userId);
+
+        $result = $statement->execute();
+
+        return $result;
+
+    }
+
+
+
+
+    //setters and getters for feature 6 (changing email)
+    protected $email_new;
+
+    /**
+     * Get the value of new email
+     */ 
+    public function getEmail_new(){
+        return $this->email_new;
+    }
+
+     /**
+     * Set the value of new email
+     *
+     * @return  self
+    */ 
+    public function setEmail_new($email_new){
+         $this->email_new = $email_new;
+
+        return $this;
+    }
+ 
+
+
+    //checks if current email = email from database
+    public function checkEmail(){
+        
+        $email= $this->getEmail();
+        //echo $email;
+        
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from users where email = :email");
+        $statement->bindValue(":email", $email);
+        $statement->execute();
+        $user=$statement->fetch();
+        return $user;
+    }
+ 
+
+    //insert new email in database
+    public function saveEmail(){
+
+        $userId = 18; //test
+        $email_new = $this->getEmail_new();
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("update users set email = :email where id = :id");
+
+        $statement->bindValue(":email", $email_new);
+        $statement->bindValue(":id", $userId);
+
+        $result = $statement->execute();
+
+        return $result;
+    }
+
+    public static function getAllEmail(){
+        
+        $userId = 18; //test
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare('select * from users where id = :id');
+        $statement->bindValue(":id", $userId);
+
+        $statement->execute();
+        $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $user;
+    }
+
+    //setters and getters for feature 5 (changing bio)
+    protected $bio;
+    
+    /**
+     * Get the value of bio
+     */ 
+    public function getBio(){
+        return $this->bio;
+    }
+
+     /**
+     * Set the value of bio
+     *
+     * @return  self
+    */ 
+    public function setBio($bio){
+         $this->bio = $bio;
+
+        return $this;
+    }
+
+   //insert bio in database
+    public function saveBio(){
+
+        $userId = 18; //test
+        $bio = $this->getBio();
+
+        //conn
+        $conn = Db::getInstance();
+
+        //insert query
+        $statement = $conn->prepare("update users set bio = :bio where id = :id");
+
+        $statement->bindValue(":bio", $bio);
+        $statement->bindValue(":id", $userId);
+
+        $user = $statement->execute();
+
+        //return result
+        return $user;
+    }
+
+    
+    public static function getAllBio(){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare('select * from users');
+        $statement->execute();
+        $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $user;
+    }
+
+    public static function getAllName(){
+        $userId = 18; //test
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare('select * from users where id = :id');
+        $statement->bindValue(":id", $userId);
+
+        $statement->execute();
+        $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $user;
+
+    }   
+    /**
+     * Get the value of userId
+     */ 
+    public function getUserId($x)
+    {
+        if(strpos($x, '@') && strpos($x, '.com')){
+            $db_name = "imdtok";
+            $db_user = "root";
+            $db_password = "";
+            $db_host = "localhost";
+            //$conn = Db::getInstance(); ===> doesn't work
+            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $statement = $conn->prepare('select id from users where email = :email');
+            $statement->bindValue(":email", $x);
+            $statement->execute();
+            $user = $statement->fetchAll();
+            return $user;
+        }else{
+            $db_name = "imdtok";
+            $db_user = "root";
+            $db_password = "";
+            $db_host = "localhost";
+            //$conn = Db::getInstance(); ===> doesn't work
+            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $statement = $conn->prepare('select id from users where username = :username');
+            $statement->bindValue(":username", $x);
+            $statement->execute();
+            $user = $statement->fetchAll();
+            return $user;
+        }
+
+        return $this->userId;
+    }
 }

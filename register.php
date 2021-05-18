@@ -18,7 +18,7 @@ if (!empty($_POST)) {
 
         // start a session and redirect the user to index.php
         session_start();
-        $_SESSION['user'] = $user->getEmail();
+        $_SESSION['user'] = $user->getUsername();
         header("Location: index.php");
     } catch (Throwable $error) {
         // if any errors are thrown in the class, they can be caught here
@@ -33,13 +33,14 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aanmelden</title>
+    <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Aanmelden</h1>
+    <main class="register container">
+        <h1>Register</h1>
         <form id="register" method="POST" action="">
             <?php if (isset($error)) : ?>
                 <div class="alert alert-danger"><?php echo $error; ?></div>
@@ -64,11 +65,14 @@ if (!empty($_POST)) {
                 <label for="InputEmail" class="form-label">Email address</label>
                 <input type="email" name="email" class="form-control" placeholder="Email" id="InputEmail" required>
             </div>
+            <div class="mb-3 text-center">
+                <a href="login.php">Or Log In</a>
+            </div>
             <div class="mb-3 d-grid gap-2">
-                <button type="submit" class="btn btn-danger">Aanmelden</button>
+                <button type="submit" class="btn btn-danger">Register</button>
             </div>
         </form>
-    </div>
+    </main>
     <script src="app.js"></script>
 </body>
 
