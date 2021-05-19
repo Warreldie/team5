@@ -83,13 +83,13 @@ include_once(__DIR__ ."/Db.php");
 
             $text = $this->getText();
             $postId = $this->getPostId(); //test
-            $userId = 20; //test
+            $userId = $this->getUserId(); //test
 
             echo "We geraken in de save";
 
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "";
+            $db_password = "root";
             $db_host = "localhost";
 
             //$conn = Db::getInstance();
@@ -161,4 +161,19 @@ include_once(__DIR__ ."/Db.php");
             echo $elapsed;
         }
         */
+
+        
+        
+
+            
+
+
+
+
+
+
+
+
+
+
     }

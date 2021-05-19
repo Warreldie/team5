@@ -1,6 +1,9 @@
 <?php
 session_start();
-//include_once(__DIR__ . "/User.php");
+
+include_once(__DIR__ . "/classes/User.php");
+    $user = new User();
+    $user = User::getAllBio();
 
 
 ?>
@@ -49,7 +52,9 @@ session_start();
             <button type="button" class="btn btn-outline-dark"><a href="profile_settings.php" class="text-reset text-decoration-none">Change profile</a></button>
         </div>
         <div class="mb-3 d-grid gap-2">
-            <p class="text-center">Add a bio or something?</p>
+        <?php foreach ($user as $u) : ?>
+            <p class="text-center"><?php echo htmlspecialchars($u["bio"]); ?></p>
+        <?php endforeach; ?>
         </div>
         <div class="mb-3">
             <div class="row">
@@ -78,7 +83,7 @@ session_start();
     </div>
     <!-- navbar bottom -->
     <nav class="navbar fixed-bottom bg-light">
-        <a class="nav-link text-dark" href="#">Home</a>
+        <a class="nav-link text-dark" href="index.php">Home</a>
         <a class="nav-link text-dark" href="#">Discover</a>
         <a class="nav-link text-dark" href="upload.php">New</a>
         <a class="nav-link text-dark" href="#">Inbox</a>

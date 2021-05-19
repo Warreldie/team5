@@ -10,8 +10,13 @@ session_start();
 
     //get Follower
     $user = new User();
-    $userid = $user->getUserId($_SESSION["user"]);
+    $user->setUserId($_SESSION["user"]);
+    $userid = $user->getUserId();
+    var_dump($userid);
+
+
     $following->setFollower($userid[0]["id"]);
+    
 
     //if following and follower isn't active
     $active = $following->active();

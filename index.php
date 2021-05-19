@@ -2,31 +2,38 @@
 //session start with username in it
 session_start();
 
-if (isset($_SESSION['user'])) {
-    //include_once(__DIR__ . "/helpers/Security.php"); 
+    if (isset($_SESSION['user'])) {
+        //include_once(__DIR__ . "/helpers/Security.php"); 
 
-    //Posts looping
-    include_once(__DIR__ . "/classes/Post.php");
-    $post = new Post();
-    $results = $post->getPosts();
+        //Posts looping
+        include_once(__DIR__ . "/classes/Post.php");
+        $post = new Post();
+        $results = $post->getPosts();
 
-    //Comments looping
-    include_once(__DIR__ . "/classes/Comment.php");
-    $comment = new Comment();
-    //test postId = 3
-    $timeAgo = $comment->getTimeStamp();
-    // time to time ago
+        //Comments looping
+        include_once(__DIR__ . "/classes/Comment.php");
+        $comment = new Comment();
+       
+        /*$timeAgo = $comment->getTimeStamp();
+        // time to time ago
 
-    $now = new DateTime();
-    $past = new DateTime($timeAgo['timestamp']);
+        $now = new DateTime();
+        $past = new DateTime($timeAgo['timestamp']);
 
-    $interval = $now->diff($past);
+        $interval = $now->diff($past);
 
-    $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
-} else {
-    //user not logged in -> redirect
-    header("Location: login.php");
-}
+        $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');*/
+
+        /*include_once(__DIR__ . "/classes/Time.php");
+        $time = new Time();*/
+
+        
+
+
+    } else {
+        //user not logged in -> redirect
+        header("Location: login.php");
+    }
 
 ?>
 <!DOCTYPE html>
@@ -72,7 +79,7 @@ if (isset($_SESSION['user'])) {
                             <div class="col-5">
                                 <div class="">username</div>
                                 <div class="fw-bold"><?php echo htmlspecialchars($c['text']) . "<br>"; ?></div>
-                                <?php echo $elapsed; ?>
+                                <?php //echo $time_ago ?>
                             </div>
                         </div>
                     </li>
@@ -97,7 +104,7 @@ if (isset($_SESSION['user'])) {
 
     <!-- navbar bottom -->
     <nav class="navbar fixed-bottom bg-dark">
-        <a class="nav-link text-white" href="#">Home</a>
+        <a class="nav-link text-white" href="index.php">Home</a>
         <a class="nav-link text-white" href="#">Discover</a>
         <a class="nav-link text-white" href="upload.php">New</a>
         <a class="nav-link text-white" href="#">Inbox</a>
