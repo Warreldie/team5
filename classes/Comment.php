@@ -82,25 +82,19 @@ include_once(__DIR__ ."/Db.php");
         public function save(){ 
 
             $text = $this->getText();
-            $postId = $this->getPostId(); //test
-            $userId = 20; //test
+            $postId = $this->getPostId(); 
+            $userId = $this->getUserId(); 
 
-            echo "We geraken in de save";
+            //echo "We geraken in de save";
 
-            $db_name = "imdtok";
-            $db_user = "root";
-            $db_password = "";
-            $db_host = "localhost";
-
-            //$conn = Db::getInstance();
-            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $conn = Db::getInstance();
             $statement = $conn->prepare("insert into comments (text, post_id, user_id) values (:text, :postId, :userId)");
 
             $statement->bindValue(":text", $text);
             $statement->bindValue(":postId", $postId);
             $statement->bindValue(":userId", $userId);
 
-            echo "We geraken voorbij de connectie";
+            //echo "We geraken voorbij de connectie";
 
             $result = $statement->execute();
             return $result;
@@ -161,4 +155,19 @@ include_once(__DIR__ ."/Db.php");
             echo $elapsed;
         }
         */
+
+        
+        
+
+            
+
+
+
+
+
+
+
+
+
+
     }

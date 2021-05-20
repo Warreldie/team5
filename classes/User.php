@@ -89,6 +89,7 @@ class User
     }
 
 
+
     public function register()
     {
         $options = [
@@ -179,7 +180,7 @@ class User
         
         $password = $this->getPassword();
 
-        $userId = 18; //test
+        $userId = 20; //test
         
         // $email = $_SESSION["user"];
         //var_dump($_SESSION);
@@ -205,7 +206,7 @@ class User
     //also contains password_hash
     public function savePassword(){
 
-        $userId = 18; //test
+        $userId = 20; //test
         $password_new = $this->getPassword_new();
 
         $options = [
@@ -269,7 +270,7 @@ class User
     //insert new email in database
     public function saveEmail(){
 
-        $userId = 18; //test
+        $userId = 20; //test
         $email_new = $this->getEmail_new();
 
         $conn = Db::getInstance();
@@ -285,7 +286,7 @@ class User
 
     public static function getAllEmail(){
         
-        $userId = 18; //test
+        $userId = 20; //test
         $conn = Db::getInstance();
 
         $statement = $conn->prepare('select * from users where id = :id');
@@ -320,7 +321,7 @@ class User
    //insert bio in database
     public function saveBio(){
 
-        $userId = 18; //test
+        $userId = 20; //test
         $bio = $this->getBio();
 
         //conn
@@ -349,7 +350,7 @@ class User
     }
 
     public static function getAllName(){
-        $userId = 18; //test
+        $userId = 20; //test
         $conn = Db::getInstance();
 
         $statement = $conn->prepare('select * from users where id = :id');
@@ -363,12 +364,12 @@ class User
     /**
      * Get the value of userId
      */ 
-    public function getUserId($x)
+    public function setuserId($x)
     {
         if(strpos($x, '@') && strpos($x, '.com')){
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "";
+            $db_password = "root";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -380,7 +381,7 @@ class User
         }else{
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "";
+            $db_password = "root";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -391,6 +392,14 @@ class User
             return $user;
         }
 
+        return $this->userId;
+    }
+
+    /**
+     * Get the value of userId
+     */ 
+    public function getUserId()
+    {
         return $this->userId;
     }
 }
