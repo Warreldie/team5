@@ -1,9 +1,6 @@
 <?php
-
-//session start with username in it
-session_start();
-
 include_once(__DIR__ . "/helpers/Security.php");
+session_start();
 
 if (!empty($_POST)) {
     try {
@@ -18,7 +15,7 @@ if (!empty($_POST)) {
             if (($_POST["password_new"]) === ($_POST["password_conf"])) {
 
                 //sets new password
-                $user->setPassword_new($_POST["password_new"]);
+                $user->setPasswordNew($_POST["password_new"]);
 
                 // saves  new password by executing a query in the database
                 $user->savePassword();

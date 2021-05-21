@@ -9,8 +9,6 @@ if (!empty($_POST)) {
         $user = new User();
         $user->setEmail($_POST["email"]);
 
-
-
         //checks if email matches email from databank
         if ($user->checkEmail()) {
 
@@ -18,7 +16,7 @@ if (!empty($_POST)) {
             if (($_POST["email_new"]) === ($_POST["email_conf"])) {
 
                 //sets new email
-                $user->setEmail_new($_POST["email_new"]);
+                $user->setEmailNew($_POST["email_new"]);
 
                 // saves new email by executing a query in the database
                 $user->saveEmail();
