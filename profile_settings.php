@@ -17,12 +17,24 @@ if (!empty($_POST)) {
     $failure = "Bio wasn't changed";
 }
 
+if(!empty($_GET)) {
+    if($_GET["message"] === "upload-success") {
+        $message = "Succesfully updated your profile picture!";
+    }
+}
+
 
 $user = User::getAllBio();
 
 $user = User::getAllEmail();
 
 $user = User::getAllName();
+
+$userId = 16; // Test value
+$user = new User();
+$user->setId($userId);
+$user->loadProfilePic();
+$profilePicture = $user->getProfilePic();
 
 ?>
 <!DOCTYPE html>
@@ -43,11 +55,22 @@ $user = User::getAllName();
         <span aria-hidden="true">&larr;</span>
     </a>
     <div class="change container">
+        <?php if(isset($message)): ?>
+            <div class="row mb-4 alert alert-success center-text" role="alert">
+                <p class="text-center mb-0"><?php echo $message; ?></p>
+            </div>
+        <?php endif; ?>
         <div class="mb-3 row justify-content-center">
-            <img src="./images/images.png" class="mb-3 w-25 p3 rounded" alt="IMDTok-video">
+            <?php if(empty($profilePicture)): ?>
+                <img src="profile-pictures/default-profile-picture.jpg" alt="Profile picture" class="mb-3 w-25 p3 rounded" >
+            <?php else: ?>
+                <img src="<?php echo $profilePicture ?>" alt="Profile picture" class="mb-3 w-25 p3 rounded">
+            <?php endif; ?>
         </div>
         <div class="text-center mb-5">
-            <a href="profile-picture.php" class="text-reset text-decoration-none">Upload profile picture</a>
+            <button class="btn btn-secondary">
+                <a href="profile-picture.php" class="text-reset text-decoration-none">Upload profile picture</a>
+            </button>
         </div>
         <div class="row mb-4">
             <label for="InputUsername" class="col justify-content-start form-label fw-bold">Username</label>
