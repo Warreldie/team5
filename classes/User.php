@@ -93,7 +93,7 @@ class User
     public function register()
     {
         $options = [
-            'cost' => 15
+            'cost' => 12
         ];
         $password = password_hash($this->password, PASSWORD_DEFAULT, $options);
 
@@ -153,13 +153,13 @@ class User
 
 
     //setters and getters for feature 5 (changing password)
-    protected $password_new;
+    protected $passwordNew;
 
     /**
      * Get the value of new password
      */ 
-    public function getPassword_new(){
-        return $this->passsword_new;
+    public function getPasswordNew(){
+        return $this->passswordNew;
     }
 
      /**
@@ -167,8 +167,8 @@ class User
      *
      * @return  self
      */ 
-    public function setPassword_new($password_new){
-        $this->passsword_new = $password_new;
+    public function setPasswordNew($passwordNew){
+        $this->passswordNew = $passwordNew;
 
         return $this;
     }
@@ -183,7 +183,7 @@ class User
         $userId = 20; //test
         
         // $email = $_SESSION["user"];
-        //var_dump($_SESSION);
+        
 
         $conn = Db::getInstance();
         $statement = $conn->prepare("select * from users where id = :id");
@@ -192,6 +192,8 @@ class User
         $user = $statement->fetch();
         $hash = $user["password"];
     
+        //var_dump($user);
+       
     
         if (password_verify($password, $hash)){
             return true;
@@ -207,21 +209,21 @@ class User
     public function savePassword(){
 
         $userId = 20; //test
-        $password_new = $this->getPassword_new();
+        $passwordNew = $this->getPasswordNew();
 
         $options = [
 			'cost' => 12,
 		];
-		$password_new = password_hash($this->password_new, PASSWORD_DEFAULT, $options);
+		$passwordNew = password_hash($this->passwordNew, PASSWORD_DEFAULT, $options);
 
         $conn = Db::getInstance();
         $statement = $conn->prepare("update users set password = :password where id = :id");
 
-        $statement->bindValue(":password", $password_new);
+        $statement->bindValue(":password", $passwordNew);
         $statement->bindValue(":id", $userId);
 
         $result = $statement->execute();
-
+       
         return $result;
 
     }
@@ -230,13 +232,13 @@ class User
 
 
     //setters and getters for feature 6 (changing email)
-    protected $email_new;
+    protected $emailNew;
 
     /**
      * Get the value of new email
      */ 
-    public function getEmail_new(){
-        return $this->email_new;
+    public function getEmailNew(){
+        return $this->emailNew;
     }
 
      /**
@@ -244,8 +246,8 @@ class User
      *
      * @return  self
     */ 
-    public function setEmail_new($email_new){
-         $this->email_new = $email_new;
+    public function setEmailNew($emailNew){
+         $this->emailNew = $emailNew;
 
         return $this;
     }
@@ -271,12 +273,12 @@ class User
     public function saveEmail(){
 
         $userId = 20; //test
-        $email_new = $this->getEmail_new();
+        $emailNew = $this->getEmailNew();
 
         $conn = Db::getInstance();
         $statement = $conn->prepare("update users set email = :email where id = :id");
 
-        $statement->bindValue(":email", $email_new);
+        $statement->bindValue(":email", $emailNew);
         $statement->bindValue(":id", $userId);
 
         $result = $statement->execute();
