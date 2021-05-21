@@ -2,12 +2,21 @@
 
     session_start();
     include_once("./classes/User.php");
+    include_once("./classes/Picture.php");
 
     // Check login
     $loggedin = true;
     if (!$loggedin) {
         header("Location: login.php");
         die();
+    }
+
+    if(!empty($_POST)) { // On submit
+        $file = $_FILES["profile-picture"];
+
+        $profile_picture = new Picture();
+        $profile_picture->setFile($file);
+        $profile_picture->saveProfilePicture();
     }
 
     $userId = 16; // Test value
@@ -39,7 +48,7 @@
                 <img src="<?php echo $profilePicture ?>" alt="Profile picture" style="height: 450px; width: 450px">
             <?php endif; ?>
         </div>
-        <form action="upload-profile-picture.php" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data">
             <div class="input-group mb-3">
                 <input type="file" name="profile-picture" class="form-control" id="profile-picture">
                 <button type="submit" name="submit" class="input-group-text" for="inputGroupFile02">Upload</button>

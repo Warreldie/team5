@@ -41,7 +41,7 @@
                         $res = $st->execute();
                         var_dump($res);
 
-                        header("Location: profile_settings.php?upload-success"); // Redirect and let know upload was succesful.
+                        header("Location: profile_settings.php?message=upload-success"); // Redirect and let know upload was succesful.
                     } else {
                         echo "Your image is too large to upload.";
                     }
