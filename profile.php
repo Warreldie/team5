@@ -5,6 +5,11 @@ include_once(__DIR__ . "/classes/User.php");
     $user = new User();
     $user = User::getAllBio();
 
+    $user = new User();
+    $userId = 16; // Test value
+    $user->setId($userId);
+    $user->loadProfilePic();
+    $profilePicture = $user->getProfilePic();
 
 ?>
 <!DOCTYPE html>
@@ -29,7 +34,11 @@ include_once(__DIR__ . "/classes/User.php");
             <h1 class="mb-3 col-10 text-center">John Doe</h1>
         </div>
         <div class="mb-3 row justify-content-center">
-            <img src="./images/images.png" class="mb-3 w-25 p3 rounded" alt="IMDTok-video">
+        <?php if(empty($profilePicture)): ?>
+                <img src="profile-pictures/default-profile-picture.jpg" alt="Profile picture" class="mb-3 w-25 p3 rounded" >
+            <?php else: ?>
+                <img src="<?php echo $profilePicture ?>" alt="Profile picture" class="mb-3 w-25 p3 rounded">
+            <?php endif; ?>
         </div>
         <div class="mb-3 row justify-content-center">
             <p class="mb-3 col-5 text-center">@ProfileThatIsMine</p>

@@ -24,6 +24,12 @@ $user = User::getAllEmail();
 
 $user = User::getAllName();
 
+$userId = 16; // Test value
+$user = new User();
+$user->setId($userId);
+$user->loadProfilePic();
+$profilePicture = $user->getProfilePic();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +50,11 @@ $user = User::getAllName();
     </a>
     <div class="change container">
         <div class="mb-3 row justify-content-center">
-            <img src="./images/images.png" class="mb-3 w-25 p3 rounded" alt="IMDTok-video">
+            <?php if(empty($profilePicture)): ?>
+                <img src="profile-pictures/default-profile-picture.jpg" alt="Profile picture" class="mb-3 w-25 p3 rounded" >
+            <?php else: ?>
+                <img src="<?php echo $profilePicture ?>" alt="Profile picture" class="mb-3 w-25 p3 rounded">
+            <?php endif; ?>
         </div>
         <div class="text-center mb-5">
             <a href="profile-picture.php" class="text-reset text-decoration-none">Upload profile picture</a>

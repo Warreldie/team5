@@ -8,6 +8,7 @@ class User
     protected $date_of_birth;
     protected $email;
     protected $userId;
+    protected $profilePic;
 
     /**
      * Get the value of username
@@ -318,6 +319,20 @@ class User
         return $this;
     }
 
+    public function loadProfilePic() {
+
+        include_once(__DIR__ . "/Db.php");
+        $conn = Db::getInstance();
+
+        $q = $conn->prepare("SELECT profile_picture FROM users WHERE id = :id");
+        $q->bindValue(":id", $this->userId);
+        $q->execute();
+        
+        $res = $q->fetch()["profile_picture"];
+        $this->profilePic = $res;
+
+    }
+
    //insert bio in database
     public function saveBio(){
 
@@ -395,11 +410,37 @@ class User
         return $this->userId;
     }
 
+    public function setId($id)
+    {
+        $this->userId = $id;
+        return $this;
+    }
+
     /**
      * Get the value of userId
      */ 
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * Get the value of profilePic
+     */ 
+    public function getProfilePic()
+    {
+        return $this->profilePic;
+    }
+
+    /**
+     * Set the value of profilePic
+     *
+     * @return  self
+     */ 
+    public function setProfilePic($profilePic)
+    {
+        $this->profilePic = $profilePic;
+
+        return $this;
     }
 }

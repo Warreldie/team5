@@ -1,21 +1,20 @@
 <?php
-session_start();
-include_once("classes/Db.php");
-$conn = Db::getInstance();
 
-// Check login
-$loggedin = true;
-if (!$loggedin) {
-    header("Location: login.php");
-    die();
-}
+    session_start();
+    include_once("./classes/User.php");
 
-$userId = 4; // Test value
-$st = $conn->prepare("SELECT * FROM users WHERE id = :id");
-$st->bindValue(":id", $userId);
-$st->execute();
-$user = $st->fetch();
-$profilePicture = $user["profile_picture"];
+    // Check login
+    $loggedin = true;
+    if (!$loggedin) {
+        header("Location: login.php");
+        die();
+    }
+
+    $userId = 16; // Test value
+    $user = new User();
+    $user->setId($userId);
+    $user->loadProfilePic();
+    $profilePicture = $user->getProfilePic();
 
 ?>
 <!DOCTYPE html>
@@ -34,9 +33,9 @@ $profilePicture = $user["profile_picture"];
 <body>
     <div class="image container">
         <div class="mb-3">
-            <?php if (empty($profilePicture)) : ?>
+            <?php if(empty($profilePicture)): ?>
                 <img src="profile-pictures/default-profile-picture.jpg" alt="Profile picture" style="height: 450px; width: 450px">
-            <?php else : ?>
+            <?php else: ?>
                 <img src="<?php echo $profilePicture ?>" alt="Profile picture" style="height: 450px; width: 450px">
             <?php endif; ?>
         </div>
