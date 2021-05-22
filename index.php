@@ -2,6 +2,11 @@
 //session start with username in it
 session_start();
 
+// test value
+$userId = 16;
+
+include_once(__DIR__ . "/classes/Like.php");
+
     if (isset($_SESSION['user'])) {
         //include_once(__DIR__ . "/helpers/Security.php"); 
 
@@ -48,7 +53,7 @@ session_start();
     <title>IMDtok - Feed</title>
 </head>
 
-<body class="feed bg-dark text-white">
+<body class="feed bg-dark text-white mt-5 mb-5">
     <!-- navbar top ==> fixed-top class -->
     <div class="navbar fixed-top  bg-dark justify-content-center">
         <div class="container-fluid">
@@ -63,9 +68,32 @@ session_start();
         <div class="mb-3 row justify-content-center" id="post">
             <!-- post image -->
             <img src="./content/<?php echo $result['post_image'] ?>" class="img-fluid" alt="IMDTok-video">
-            <p class="likes">
-                <a href="#">Like</a>
-                <span id="likes__counter">2</span> people like this
+            <p class="likes mt-3">
+                <?php
+                    $like = new Like();
+                    $like->setUserId($userId);
+                    $like->setPostId($result["id"]);
+                    $like->loadLike();
+
+                    $likeStatus = $like->getStatus();
+                ?>
+
+                <?php if($likeStatus === "0"): ?>
+                <button class="btn btn-outline-light" data-liked="false" data-postid="<?php echo $result["id"]; ?>">Like</button>
+                <?php elseif($likeStatus === NULL): ?>
+                <button class="btn btn-outline-light" data-liked="null" data-postid="<?php echo $result["id"]; ?>">Like</button>
+                <?php elseif($likeStatus === "1"): ?>
+                <button class="btn btn-light" data-liked="true" data-postid="<?php echo $result["id"]; ?>">Liked</button>
+                <?php endif; ?>
+
+                <?php
+                    $likes = Like::getNumberOfLikes($result["id"]);
+                    if($likes === "1"):
+                ?>
+                <span id="likes__counter"><?php echo $likes; ?></span> <span class="like__text">person likes this</span>
+                <?php else: ?>
+                <span id="likes__counter"><?php echo $likes; ?></span> <span class="like__text">people like this</span>
+                <?php endif; ?>
             </p>
             <!-- post comments -->
             <ul class="mb-3 post__comments__list list-group list-group-numbered">
@@ -112,6 +140,7 @@ session_start();
     </nav>
 
     <script src="comment.js"></script>
+    <script src="like.js"></script>
 
 </body>
 
