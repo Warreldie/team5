@@ -366,6 +366,12 @@ class User
     public function getUserId($x)
     {
         if(strpos($x, '@') && strpos($x, '.com')){
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
             $db_name = "imdtok";
             $db_user = "root";
             $db_password = "";
@@ -378,6 +384,12 @@ class User
             $user = $statement->fetchAll();
             return $user;
         }else{
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
             $db_name = "imdtok";
             $db_user = "root";
             $db_password = "";
@@ -392,5 +404,13 @@ class User
         }
 
         return $this->userId;
+    }
+    public function getUsernameFromId($x){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare('select username from users where id = :user_id');
+        $statement->bindValue(":user_id", $x);
+        $statement->execute();
+        $user = $statement->fetch();
+        return $user;
     }
 }

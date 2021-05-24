@@ -47,6 +47,12 @@ include_once(__DIR__ ."/Db.php");
         }
 
         public function save(){
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
             $db_name = "imdtok";
             $db_user = "root";
             $db_password = "";
@@ -66,6 +72,12 @@ include_once(__DIR__ ."/Db.php");
             return $result;
         }
         public function exist(){
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
             $db_name = "imdtok";
             $db_user = "root";
             $db_password = "";
@@ -83,6 +95,12 @@ include_once(__DIR__ ."/Db.php");
             return $result;
         }
         public function active(){
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
             $db_name = "imdtok";
             $db_user = "root";
             $db_password = "";
@@ -101,6 +119,12 @@ include_once(__DIR__ ."/Db.php");
             return $result[0];
         }
         public function UnFollow(){
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
             $db_name = "imdtok";
             $db_user = "root";
             $db_password = "";
@@ -117,6 +141,12 @@ include_once(__DIR__ ."/Db.php");
             return $result;
         }
         public function Following(){
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
             $db_name = "imdtok";
             $db_user = "root";
             $db_password = "";
@@ -133,6 +163,12 @@ include_once(__DIR__ ."/Db.php");
             return $result;
         }
         public function CountFollowing(){
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
             $db_name = "imdtok";
             $db_user = "root";
             $db_password = "";

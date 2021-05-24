@@ -4,7 +4,8 @@ session_start();
 
 if (isset($_SESSION['user'])) {
     //include_once(__DIR__ . "/helpers/Security.php"); 
-
+    include_once(__DIR__ . "/classes/User.php");
+    $user = new User();
     //Posts looping
     include_once(__DIR__ . "/classes/Post.php");
     $post = new Post();
@@ -54,6 +55,10 @@ if (isset($_SESSION['user'])) {
     <!-- post -->
     <?php foreach ($results as $result) : $comment->setPostId($result["id"]) ?>
         <div class="mb-3 row justify-content-center" id="post">
+            <div class="mb-3 col-3">
+            <?php $username = $user->getUsernameFromId($result["user_id"]); ?>
+            <a href="detail.php" class="row justify-content-center text-reset text-decoration-none fw-bold">@<?php echo $username["username"]; ?></a>
+            </div>
             <!-- post image -->
             <img src="./content/<?php echo $result['post_image'] ?>" class="img-fluid" alt="IMDTok-video">
             <p class="likes">
