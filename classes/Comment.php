@@ -85,9 +85,20 @@ include_once(__DIR__ ."/Db.php");
             $postId = $this->getPostId(); 
             $userId = $this->getUserId(); 
 
-            //echo "We geraken in de save";
+            echo "We geraken in de save";
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
+            $db_name = "imdtok";
+            $db_user = "root";
+            $db_password = "";
+            $db_host = "localhost";
 
-            $conn = Db::getInstance();
+            //$conn = Db::getInstance();
+            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
             $statement = $conn->prepare("insert into comments (text, post_id, user_id) values (:text, :postId, :userId)");
 
             $statement->bindValue(":text", $text);

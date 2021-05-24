@@ -27,7 +27,6 @@ session_start();
         $text = "Follow";
     }
     $countfollowing = $following->CountFollowing();
-    echo $countfollowing;
 ?>
 <!DOCTYPE html>
 <html lang="en">
