@@ -392,7 +392,7 @@ class User
             */
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -410,7 +410,7 @@ class User
             */
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -464,5 +464,12 @@ class User
         $statement->execute();
         $user = $statement->fetch();
         return $user;
+    }
+    public function getPostId($x)
+    {
+        $conn = Db::getInstance();
+        $statement = $conn->query("SELECT * FROM posts WHERE user_id = $x");
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 }

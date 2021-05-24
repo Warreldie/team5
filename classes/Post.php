@@ -13,6 +13,7 @@ class Post
     protected $description;
     protected $tags;
     protected $id;
+    protected $userid;
 
     /**
      * Get the value of file
@@ -254,21 +255,81 @@ class Post
         $this->id = $statement->fetch()["id"];
         return $this;
     }
+    /**
+     * Get the value of userid
+     */ 
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * Set the value of userid
+     *
+     * @return  self
+     */ 
+    public function setUserid($x)
+    {
+        if(strpos($x, '@') && strpos($x, '.com')){
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
+            $db_name = "imdtok";
+            $db_user = "root";
+            $db_password = "";
+            $db_host = "localhost";
+            //$conn = Db::getInstance(); ===> doesn't work
+            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $statement = $conn->prepare('select id from users where email = :email');
+            $statement->bindValue(":email", $x);
+            $statement->execute();
+            $userid = $statement->fetchAll();
+            $this->userid = $userid;
+
+            return $this;
+        }else{
+            /*
+            $db_name = "warrel_netimdtok";
+            $db_user = "warrel_netimdtok";
+            $db_password = "php@team5";
+            $db_host = "warrel.net.mysql";
+            */
+            $db_name = "imdtok";
+            $db_user = "root";
+            $db_password = "";
+            $db_host = "localhost";
+            //$conn = Db::getInstance(); ===> doesn't work
+            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $statement = $conn->prepare('select id from users where username = :username');
+            $statement->bindValue(":username", $x);
+            $statement->execute();
+            $userid = $statement->fetchAll();
+            $this->userid = $userid;
+
+            return $this;
+        }
+
+        return $this->userid;
+    }
     //We save all the information from the post in the database
     public function save()
     {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("INSERT INTO posts (user_id, post_text, post_image) VALUES (4, :description, :filename);");
+        $statement = $conn->prepare("INSERT INTO posts (user_id, post_text, post_image) VALUES (:userid, :description, :filename);");
         $statement->bindValue(':filename', $this->filenamenew);
         $statement->bindValue(':description', $this->description);
-
+        $statement->bindValue(':userid', $this->userid[0]["id"]);
         return $statement->execute();
     }
     //Get the post image
     public function getPosts()
     {
         $conn = Db::getInstance();
-        $statement = $conn->query("SELECT * FROM posts WHERE user_id = 4");
+        //$statement = $conn->query("SELECT * FROM posts WHERE user_id = :userid"); ---> userid has to be your friends userid
+        $statement = $conn->query("SELECT * FROM posts");
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

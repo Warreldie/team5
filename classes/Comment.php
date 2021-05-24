@@ -166,19 +166,4 @@ include_once(__DIR__ ."/Db.php");
             echo $elapsed;
         }
         */
-
-        
-        
-
-            
-
-
-
-
-
-
-
-
-
-
     }

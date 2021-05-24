@@ -12,12 +12,6 @@
     padding-top: 5em;
     margin: auto;
 }
-.feed{
-    width: 100%;
-    max-width: 500px;
-    padding: 15px;
-    margin: auto;
-}
 .change{
     width: 100%;
     max-width: 500px;
@@ -51,5 +45,11 @@
     max-width: 500px;
     padding: 15px;
     padding-top: 5em;
+    margin: auto;
+}
+.feed{
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
     margin: auto;
 }

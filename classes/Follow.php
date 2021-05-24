@@ -55,7 +55,7 @@ include_once(__DIR__ ."/Db.php");
             */
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -80,7 +80,7 @@ include_once(__DIR__ ."/Db.php");
             */
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -103,7 +103,7 @@ include_once(__DIR__ ."/Db.php");
             */
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -127,7 +127,7 @@ include_once(__DIR__ ."/Db.php");
             */
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -149,7 +149,7 @@ include_once(__DIR__ ."/Db.php");
             */
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
@@ -171,7 +171,7 @@ include_once(__DIR__ ."/Db.php");
             */
             $db_name = "imdtok";
             $db_user = "root";
-            $db_password = "root";
+            $db_password = "";
             $db_host = "localhost";
             //$conn = Db::getInstance(); ===> doesn't work
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);

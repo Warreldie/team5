@@ -27,10 +27,6 @@ if (isset($_SESSION['user'])) {
 
         /*include_once(__DIR__ . "/classes/Time.php");
         $time = new Time();*/
-
-        
-
-
     } else {
         //user not logged in -> redirect
         header("Location: login.php");
@@ -51,7 +47,7 @@ if (isset($_SESSION['user'])) {
 
 <body class="feed bg-dark text-white">
     <!-- navbar top ==> fixed-top class -->
-    <div class="navbar fixed-top  bg-dark justify-content-center">
+    <div class="navbar feed fixed-top  bg-dark justify-content-center">
         <div class="container-fluid">
             <a class="nav-link text-white" href="#">Following</a>
             <a class="nav-link text-white" href="#">For You</a>
@@ -64,7 +60,7 @@ if (isset($_SESSION['user'])) {
         <div class="mb-3 row justify-content-center" id="post">
             <div class="mb-3 col-3">
             <?php $username = $user->getUsernameFromId($result["user_id"]); ?>
-            <a href="detail.php" class="row justify-content-center text-reset text-decoration-none fw-bold">@<?php echo $username["username"]; ?></a>
+            <a href="detail.php?id=<?php echo $result["user_id"] ?>" class="row justify-content-center text-reset text-decoration-none fw-bold">@<?php echo $username["username"]; ?></a>
             </div>
             <!-- post image -->
             <img src="./content/<?php echo $result['post_image'] ?>" class="img-fluid" alt="IMDTok-video">
@@ -73,7 +69,7 @@ if (isset($_SESSION['user'])) {
                 <span id="likes__counter">2</span> people like this
             </p>
             <!-- post comments -->
-            <ul class="mb-3 post__comments__list list-group list-group-numbered">
+            <ul class="feed mb-3 post__comments__list list-group list-group-numbered">
                 <?php $allComments = Comment::getAllFromId($result["id"]); ?>
                 <?php foreach ($allComments as $c) : ?>
                     <li class="mb-1 list-group-item justify-content-between rounded">
@@ -108,7 +104,7 @@ if (isset($_SESSION['user'])) {
     <?php endforeach; ?>
 
     <!-- navbar bottom -->
-    <nav class="navbar fixed-bottom bg-dark">
+    <nav class="navbar feed fixed-bottom bg-dark">
         <a class="nav-link text-white" href="index.php">Home</a>
         <a class="nav-link text-white" href="#">Discover</a>
         <a class="nav-link text-white" href="upload.php">New</a>

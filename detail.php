@@ -12,8 +12,10 @@ session_start();
     $user = new User();
     $user->setUserId($_SESSION["user"]);
     $userid = $user->getUserId();
-    var_dump($userid);
 
+    $id = $_GET["id"];
+    $username = $user->getUsernameFromId($id);
+    $posts = $user->getPostId($id);
 
     $following->setFollower($userid[0]["id"]);
     
@@ -42,13 +44,13 @@ session_start();
 <body>
     <div class="container">
         <div class="mb-3 row justify-content-center">
-            <h1 class="mb-3 col-10">Profile You Want To Follow</h1>
+            <h1 class="mb-3 col-3"><?php echo $username["username"]; ?></h1>
         </div>
         <div class="mb-3 row justify-content-center">
             <img src="./images/images.png" class="mb-3 w-25 p3 rounded" alt="IMDTok-video">
         </div>
         <div class="mb-3 row justify-content-center">
-            <p class="mb-3 col-5">@ProfileYouWantToFollow</p>
+            <p class="mb-3 col-2">@<?php echo $username["username"]; ?></p>
         </div>
         <div class="mb-3 row justify-content-center">
             <div class="mb-3 col-3">
@@ -72,26 +74,11 @@ session_start();
         </form>
         <div class="mb-3">
             <div class="row">
+                <?php foreach($posts as $post): ?>
                 <div class="col">
-                    <img src="./images/image.jpg" class="mb-3 img-fluid" alt="IMDTok-video">
+                    <img src="./content/<?php echo $post['post_image']; ?>" class="mb-3 img-fluid" alt="IMDTok-video">
                 </div>
-                <div class="col">
-                    <img src="./images/image.jpg" class="mb-3 img-fluid" alt="IMDTok-video">
-                </div>
-                <div class="col">
-                    <img src="./images/image.jpg" class="mb-3 img-fluid" alt="IMDTok-video">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <img src="./images/image.jpg" class="mb-3 img-fluid" alt="IMDTok-video">
-                </div>
-                <div class="col">
-                    <img src="./images/image.jpg" class="mb-3 img-fluid" alt="IMDTok-video">
-                </div>
-                <div class="col">
-                    <img src="./images/image.jpg" class="mb-3 img-fluid" alt="IMDTok-video">
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 <?php
 include_once(__DIR__ . "../../team5/helpers/Security.php");
 include_once(__DIR__ . "/classes/Post.php");
+session_start();
 //If you click on submit we will read out the picture
 if (isset($_POST["submit"])) {
     //Create a new post
@@ -23,6 +24,8 @@ if (isset($_POST["submit"])) {
                 $post->move();
                 //Add the description to the post
                 $post->setDescription($_POST["description"]);
+                //UserId 
+                $post->setUserId($_SESSION["user"]);
                 //Save the filename into post_image tabel in the databank
                 $post->save();
                 //Get the tags and save them in tags table + save tags_id with post_id in posts_tags table
