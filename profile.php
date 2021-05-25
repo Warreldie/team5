@@ -91,13 +91,7 @@ include_once(__DIR__ . "/classes/User.php");
         </div>
     </div>
     <!-- navbar bottom -->
-    <nav class="navbar fixed-bottom bg-light">
-        <a class="nav-link text-dark" href="index.php">Home</a>
-        <a class="nav-link text-dark" href="#">Discover</a>
-        <a class="nav-link text-dark" href="upload.php">New</a>
-        <a class="nav-link text-dark" href="#">Inbox</a>
-        <a class="nav-link text-dark" href="profile.php">Me</a>
-    </nav>
+    <?php include_once(__DIR__ . "/partials/nav.bottom.white.inc.php"); ?>
 </body>
 
 </html>

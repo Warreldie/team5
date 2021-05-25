@@ -19,7 +19,6 @@ session_start();
 
     $following->setFollower($userid[0]["id"]);
     
-
     //if following and follower isn't active
     $active = $following->active();
 

@@ -47,13 +47,7 @@ if (isset($_SESSION['user'])) {
 
 <body class="feed bg-dark text-white">
     <!-- navbar top ==> fixed-top class -->
-    <div class="navbar feed fixed-top  bg-dark justify-content-center">
-        <div class="container-fluid">
-            <a class="nav-link text-white" href="#">Following</a>
-            <a class="nav-link text-white" href="#">For You</a>
-            <a class="nav-link text-white" href="logout.php">Logout</a>
-        </div>
-    </div>
+    <?php include_once(__DIR__ . "/partials/nav.top.black.inc.php"); ?>
 
     <!-- post -->
     <?php foreach ($results as $result) : $comment->setPostId($result["id"]) ?>
@@ -104,13 +98,7 @@ if (isset($_SESSION['user'])) {
     <?php endforeach; ?>
 
     <!-- navbar bottom -->
-    <nav class="navbar feed fixed-bottom bg-dark">
-        <a class="nav-link text-white" href="index.php">Home</a>
-        <a class="nav-link text-white" href="#">Discover</a>
-        <a class="nav-link text-white" href="upload.php">New</a>
-        <a class="nav-link text-white" href="#">Inbox</a>
-        <a class="nav-link text-white" href="profile.php">Me</a>
-    </nav>
+    <?php include_once(__DIR__ . "/partials/nav.bottom.black.inc.php"); ?>
 
     <script src="js/comment.js"></script>
 
