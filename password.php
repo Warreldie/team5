@@ -39,7 +39,6 @@ if (!empty($_POST)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
-
     <title>Change password</title>
 </head>
 
@@ -75,9 +74,8 @@ if (!empty($_POST)) {
             </div>
         </div>
     </form>
-
-
-
+    <!-- navbar bottom -->
+    <?php include_once(__DIR__ . "/partials/nav.bottom.white.inc.php"); ?>
 </body>
 
 </html>

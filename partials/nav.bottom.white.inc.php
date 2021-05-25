@@ -1,4 +1,4 @@
-<nav class="navbar fixed-bottom bg-light">
+<nav class="navbar phone fixed-bottom bg-light">
         <a class="nav-link text-dark" href="index.php">Home</a>
         <a class="nav-link text-dark" href="#">Discover</a>
         <a class="nav-link text-dark" href="upload.php">New</a>
