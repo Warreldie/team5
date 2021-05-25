@@ -1,40 +1,43 @@
 <?php
-//session start with username in it
+//Session start with username in it
 session_start();
 
 // test value
 $userId = 16;
-
 include_once(__DIR__ . "/classes/Like.php");
 
-    if (isset($_SESSION['user'])) {
-        //include_once(__DIR__ . "/helpers/Security.php"); 
+if (isset($_SESSION['user'])) {
+    //include_once(__DIR__ . "/helpers/Security.php"); 
+    include_once(__DIR__ . "/classes/User.php");
+    $user = new User();
+    //Posts looping
+    include_once(__DIR__ . "/classes/Post.php");
+    $post = new Post();
+    $results = $post->getPosts();
+    //Comments looping
+    include_once(__DIR__ . "/classes/Comment.php");
+    $comment = new Comment();
 
-        //Posts looping
-        include_once(__DIR__ . "/classes/Post.php");
-        $post = new Post();
-        $results = $post->getPosts();
+    /*
+    $timeAgo = $comment->getTimeStamp();
+    // time to time ago
 
-        //Comments looping
-        include_once(__DIR__ . "/classes/Comment.php");
-        $comment = new Comment();
-       
-        /*$timeAgo = $comment->getTimeStamp();
-        // time to time ago
+    $now = new DateTime();
+    $past = new DateTime($timeAgo['timestamp']);
 
-        $now = new DateTime();
-        $past = new DateTime($timeAgo['timestamp']);
+    $interval = $now->diff($past);
 
-        $interval = $now->diff($past);
+    $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+    */
 
-        $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');*/
-
-        /*include_once(__DIR__ . "/classes/Time.php");
-        $time = new Time();*/
-    } else {
-        //user not logged in -> redirect
-        header("Location: login.php");
-    }
+    /*
+    include_once(__DIR__ . "/classes/Time.php");
+    $time = new Time();
+    */
+} else {
+    //User not logged in -> redirect
+    header("Location: login.php");
+}
 
 ?>
 <!DOCTYPE html>
@@ -51,20 +54,15 @@ include_once(__DIR__ . "/classes/Like.php");
 
 <body class="feed bg-dark text-white mt-5 mb-5">
     <!-- navbar top ==> fixed-top class -->
-    <div class="navbar feed fixed-top  bg-dark justify-content-center">
-        <div class="container-fluid">
-            <a class="nav-link text-white" href="#">Following</a>
-            <a class="nav-link text-white" href="#">For You</a>
-            <a class="nav-link text-white" href="logout.php">Logout</a>
-        </div>
-    </div>
+    <?php include_once(__DIR__ . "/partials/nav.top.black.inc.php"); ?>
 
     <!-- post -->
     <?php foreach ($results as $result) : $comment->setPostId($result["id"]) ?>
         <div class="mb-3 row justify-content-center" id="post">
             <div class="mb-3 col-3">
-            <?php $username = $user->getUsernameFromId($result["user_id"]); ?>
-            <a href="detail.php?id=<?php echo $result["user_id"] ?>" class="row justify-content-center text-reset text-decoration-none fw-bold">@<?php echo $username["username"]; ?></a>
+                <!-- Add username from the person who posted it -->
+                <?php $username = $user->getUsernameFromId($result["user_id"]); ?>
+                <a href="detail.php?id=<?php echo $result["user_id"] ?>" class="row justify-content-center text-reset text-decoration-none fw-bold">@<?php echo $username["username"]; ?></a>
             </div>
             <!-- post image -->
             <img src="./content/<?php echo $result['post_image'] ?>" class="img-fluid" alt="IMDTok-video">
@@ -107,13 +105,12 @@ include_once(__DIR__ . "/classes/Like.php");
                             <div class="col-5">
                                 <div class="">username</div>
                                 <div class="fw-bold"><?php echo htmlspecialchars($c['text']) . "<br>"; ?></div>
-                                <?php //echo $time_ago ?>
                             </div>
                         </div>
                     </li>
                 <?php endforeach; ?>
             </ul>
-            <!-- post comment form-->
+            <!-- post comment form -->
             <div class="mb-3 post__comments">
                 <div class="post__comments__form">
                     <form method="post" class="row justify-content-between" action="">
@@ -131,16 +128,10 @@ include_once(__DIR__ . "/classes/Like.php");
     <?php endforeach; ?>
 
     <!-- navbar bottom -->
-    <nav class="navbar feed fixed-bottom bg-dark">
-        <a class="nav-link text-white" href="index.php">Home</a>
-        <a class="nav-link text-white" href="#">Discover</a>
-        <a class="nav-link text-white" href="upload.php">New</a>
-        <a class="nav-link text-white" href="#">Inbox</a>
-        <a class="nav-link text-white" href="profile.php">Me</a>
-    </nav>
+    <?php include_once(__DIR__ . "/partials/nav.bottom.black.inc.php"); ?>
 
-    <script src="comment.js"></script>
-    <script src="like.js"></script>
+    <script src="js/comment.js"></script>
+    <script src="js/like.js"></script>
 
 </body>
 

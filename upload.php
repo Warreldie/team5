@@ -8,13 +8,13 @@ if (isset($_POST["submit"])) {
     $post = new Post();
     //Set all the things in the file to use them
     $post->setFile($_FILES["file"]);
-    
+
     $post->setFilename($_FILES["file"]["name"]);
     $post->setFiletmpname($_FILES["file"]["tmp_name"]);
     $post->setFilesize($_FILES["file"]["size"]);
     $post->setFileerror($_FILES["file"]["error"]);
     //If the image type is allowed we go further
-    if($post->allowed()){
+    if ($post->allowed()) {
         //Looking if there was an error and if the filesize is not to big
         if($post->getFileerror() === 0){
             if($post->getFilesize() < 2500000){
@@ -36,11 +36,11 @@ if (isset($_POST["submit"])) {
             } else {
                 $error = "Your file was to big!";
             }
-        }else{
+        } else {
             $error = "There was an error uploading your file!";
         }
-    }else{
-        $error = "You can't upload files of this type!";   
+    } else {
+        $error = "You can't upload files of this type!";
     }
 }
 ?>
@@ -51,18 +51,19 @@ if (isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+    <title>Upload</title>
 </head>
 
 <body>
     <div class="container">
         <h1>Upload</h1>
         <form method="POST" action="" enctype="multipart/form-data">
-            <?php if(isset($error)): ?>
-            <div class="alert alert-danger" role="alert">
-                <?php echo $error; ?>
-            </div>
+            <?php if (isset($error)) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $error; ?>
+                </div>
             <?php endif; ?>
             <div class="mb-3">
                 <textarea name="description" class="form-control" placeholder="Description" required></textarea>
@@ -79,6 +80,8 @@ if (isset($_POST["submit"])) {
             </div>
         </form>
     </div>
+    <!-- navbar bottom -->
+    <?php include_once(__DIR__ . "/partials/nav.bottom.white.inc.php"); ?>
 </body>
 
 </html>

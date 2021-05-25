@@ -1,34 +1,34 @@
 <?php
 include_once(__DIR__ . "/classes/Follow.php");
 include_once(__DIR__ . "/classes/User.php");
-//session start with username in it
+//Session start with username in it
 session_start();
-    //new following
-    $following = new Follow();
-    //Number 15 has to be replaced with a nubre from the url
-    $following->setFollow(11);
+//New following
+$following = new Follow();
+//Number 11 has to be replaced with a nuber from the url
+$following->setFollow(11);
 
-    //get Follower
-    $user = new User();
-    $user->setUserId($_SESSION["user"]);
-    $userid = $user->getUserId();
+//Get Follower
+$user = new User();
+$user->setUserId($_SESSION["user"]);
+$userid = $user->getUserId();
 
-    $id = $_GET["id"];
-    $username = $user->getUsernameFromId($id);
-    $posts = $user->getPostId($id);
+//Get id number from url
+$id = $_GET["id"];
+$username = $user->getUsernameFromId($id);
+$posts = $user->getPostId($id);
 
-    $following->setFollower($userid[0]["id"]);
-    
+$following->setFollower($userid[0]["id"]);
 
-    //if following and follower isn't active
-    $active = $following->active();
+//if following and follower isn't active
+$active = $following->active();
 
-    if($active){
-        $text = "UnFollow";
-    }else{
-        $text = "Follow";
-    }
-    $countfollowing = $following->CountFollowing();
+if ($active) {
+    $text = "UnFollow";
+} else {
+    $text = "Follow";
+}
+$countfollowing = $following->CountFollowing();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,8 +37,9 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DetailPage</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+    <title>DetailPage</title>
 </head>
 
 <body>
@@ -74,15 +75,18 @@ session_start();
         </form>
         <div class="mb-3">
             <div class="row">
-                <?php foreach($posts as $post): ?>
-                <div class="col">
-                    <img src="./content/<?php echo $post['post_image']; ?>" class="mb-3 img-fluid" alt="IMDTok-video">
-                </div>
+                <?php foreach ($posts as $post) : ?>
+                    <div class="col">
+                        <img src="./content/<?php echo $post['post_image']; ?>" class="mb-3 img-fluid" alt="IMDTok-video">
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
     </div>
-    <script src="follow.js"></script>
+    <!-- navbar bottom -->
+    <?php include_once(__DIR__ . "/partials/nav.bottom.white.inc.php"); ?>
+
+    <script src="js/follow.js"></script>
 </body>
 
 </html>

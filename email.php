@@ -3,22 +3,17 @@ include_once(__DIR__ . "/helpers/Security.php");
 session_start();
 
 if (!empty($_POST)) {
-
     try {
         include_once(__DIR__ . "/classes/User.php");
         $user = new User();
         $user->setEmail($_POST["email"]);
-
-        //checks if email matches email from databank
+        //Checks if email matches email from databank
         if ($user->checkEmail()) {
-
-            // checks if new email = confirm email
+            //Checks if new email = confirm email
             if (($_POST["email_new"]) === ($_POST["email_conf"])) {
-
-                //sets new email
+                //Sets new email
                 $user->setEmailNew($_POST["email_new"]);
-
-                // saves new email by executing a query in the database
+                //Saves new email by executing a query in the database
                 $user->saveEmail();
                 $success = "Email changed";
             } else {
@@ -41,7 +36,6 @@ if (!empty($_POST)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
-
     <title>Change email</title>
 </head>
 
@@ -77,6 +71,8 @@ if (!empty($_POST)) {
             </div>
         </div>
     </form>
+    <!-- navbar bottom -->
+    <?php include_once(__DIR__ . "/partials/nav.bottom.white.inc.php"); ?>
 </body>
 
 </html>

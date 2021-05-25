@@ -175,25 +175,6 @@ class Post
 
         return $this;
     }
-    //Looking of the type of document is allowed
-    public function allowed()
-    {
-        //We get the filetype by setting it and test of it is allowed by diffrent types
-        $this->setFiletype();
-        $allowed = array("jpg", "jpeg", "png", "pdf");
-
-        if (in_array($this->getFiletype(), $allowed)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    //Move the file from a folder from the customer to our folder on the server
-    public function move()
-    {
-        move_uploaded_file($this->getFiletmpname(), $this->getFiledestination());
-    }
-
     /**
      * Get the value of description
      */
@@ -232,10 +213,10 @@ class Post
 
         return $this;
     }
-    
+
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -245,7 +226,7 @@ class Post
      * Set the value of post_id to the current post_id from looking at the current filename with special id and timestamp
      *
      * @return  self
-     */ 
+     */
     public function setId()
     {
         $conn = Db::getInstance();
@@ -255,9 +236,10 @@ class Post
         $this->id = $statement->fetch()["id"];
         return $this;
     }
+
     /**
      * Get the value of userid
-     */ 
+     */
     public function getUserid()
     {
         return $this->userid;
@@ -267,22 +249,11 @@ class Post
      * Set the value of userid
      *
      * @return  self
-     */ 
+     */
     public function setUserid($x)
     {
-        if(strpos($x, '@') && strpos($x, '.com')){
-            /*
-            $db_name = "warrel_netimdtok";
-            $db_user = "warrel_netimdtok";
-            $db_password = "php@team5";
-            $db_host = "warrel.net.mysql";
-            */
-            $db_name = "imdtok";
-            $db_user = "root";
-            $db_password = "";
-            $db_host = "localhost";
-            //$conn = Db::getInstance(); ===> doesn't work
-            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+        if (strpos($x, '@') && strpos($x, '.com')) {
+            $conn = Db::getInstance();
             $statement = $conn->prepare('select id from users where email = :email');
             $statement->bindValue(":email", $x);
             $statement->execute();
@@ -290,19 +261,8 @@ class Post
             $this->userid = $userid;
 
             return $this;
-        }else{
-            /*
-            $db_name = "warrel_netimdtok";
-            $db_user = "warrel_netimdtok";
-            $db_password = "php@team5";
-            $db_host = "warrel.net.mysql";
-            */
-            $db_name = "imdtok";
-            $db_user = "root";
-            $db_password = "";
-            $db_host = "localhost";
-            //$conn = Db::getInstance(); ===> doesn't work
-            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+        } else {
+            $conn = Db::getInstance();
             $statement = $conn->prepare('select id from users where username = :username');
             $statement->bindValue(":username", $x);
             $statement->execute();
@@ -314,6 +274,25 @@ class Post
 
         return $this->userid;
     }
+    //Looking of the type of document is allowed
+    public function allowed()
+    {
+        //We get the filetype by setting it and test of it is allowed by diffrent types
+        $this->setFiletype();
+        $allowed = array("jpg", "jpeg", "png", "pdf");
+
+        if (in_array($this->getFiletype(), $allowed)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //Move the file from a folder from the customer to our folder on the server
+    public function move()
+    {
+        move_uploaded_file($this->getFiletmpname(), $this->getFiledestination());
+    }
+
     //We save all the information from the post in the database
     public function save()
     {

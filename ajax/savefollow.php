@@ -3,15 +3,15 @@ include_once(__DIR__ . "/../classes/Follow.php");
 include_once(__DIR__ . "/../classes/User.php");
 session_start();
 if (!empty($_POST)) {
-    //new following
+    //New following
     $following = new Follow();
     $following->setFollow($_POST["following_id"]);
     //$countfollowing = $following->CountFollowing();
-    //get Follower
+    //Get Follower
     $user = new User();
     $userid = $user->getUserId($_SESSION["user"]);
     $following->setFollower($userid[0]["id"]);
-    //if following and follower isn't active
+    //If following and follower isn't active
     $active = $following->active();
     if ($active) {
         $following->UnFollow();
@@ -21,14 +21,14 @@ if (!empty($_POST)) {
             'message' => "Already Following"
         ];
     } else {
-        //save
+        //Save
         $exist = $following->exist();
         if (!($exist)) {
             $following->save();
         } else {
             $following->Following();
         }
-        //succes teruggeven
+        //Return succes
         $response = [
             'status' => 'succes',
             'body' => 'UnFollow',

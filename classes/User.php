@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once(__DIR__ . "/Db.php");
 
 class User
@@ -7,12 +7,15 @@ class User
     protected $password;
     protected $date_of_birth;
     protected $email;
+    protected $passwordNew;
+    protected $emailNew;
+    protected $bio;
     protected $userId;
     protected $profilePic;
 
     /**
      * Get the value of username
-     */ 
+     */
     public function getUsername()
     {
         return $this->username;
@@ -22,7 +25,7 @@ class User
      * Set the value of username
      *
      * @return  self
-     */ 
+     */
     public function setUsername($username)
     {
         $this->username = $username;
@@ -32,7 +35,7 @@ class User
 
     /**
      * Get the value of password
-     */ 
+     */
     public function getPassword()
     {
         return $this->password;
@@ -42,7 +45,7 @@ class User
      * Set the value of password
      *
      * @return  self
-     */ 
+     */
     public function setPassword($password)
     {
         $this->password = $password;
@@ -51,7 +54,7 @@ class User
     }
     /**
      * Get the value of date_of_birth
-     */ 
+     */
     public function getDate_of_birth()
     {
         return $this->date_of_birth;
@@ -61,7 +64,7 @@ class User
      * Set the value of date_of_birth
      *
      * @return  self
-     */ 
+     */
     public function setDate_of_birth($date_of_birth)
     {
         $this->date_of_birth = $date_of_birth;
@@ -71,7 +74,7 @@ class User
 
     /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -81,15 +84,122 @@ class User
      * Set the value of email
      *
      * @return  self
-     */ 
+     */
     public function setEmail($email)
     {
         $this->email = $email;
 
         return $this;
     }
+    /**
+     * Get the value of new password
+     */
+    public function getPasswordNew()
+    {
+        return $this->passswordNew;
+    }
 
+    /**
+     * Set the value of new password
+     *
+     * @return  self
+     */
+    public function setPasswordNew($passwordNew)
+    {
+        $this->passswordNew = $passwordNew;
 
+        return $this;
+    }
+
+    /**
+     * Get the value of new email
+     */
+    public function getEmailNew()
+    {
+        return $this->emailNew;
+    }
+
+    /**
+     * Set the value of new email
+     *
+     * @return  self
+     */
+    public function setEmailNew($emailNew)
+    {
+        $this->emailNew = $emailNew;
+
+        return $this;
+    }
+    /**
+     * Get the value of bio
+     */
+    public function getBio()
+    {
+        return $this->bio;
+    }
+
+    /**
+     * Set the value of bio
+     *
+     * @return  self
+     */
+    public function setBio($bio)
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of userId
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Get the value of userId
+     */
+    public function setuserId($x)
+    {
+        if (strpos($x, '@') && strpos($x, '.com')) {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('select id from users where email = :email');
+            $statement->bindValue(":email", $x);
+            $statement->execute();
+            $user = $statement->fetchAll();
+            return $user;
+        } else {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('select id from users where username = :username');
+            $statement->bindValue(":username", $x);
+            $statement->execute();
+            $user = $statement->fetchAll();
+            return $user;
+        }
+        return $this->userId;
+    }
+
+    /**
+     * Get the value of profilePic
+     */
+    public function getProfilePic()
+    {
+        return $this->profilePic;
+    }
+
+    /**
+     * Set the value of profilePic
+     *
+     * @return  self
+     */
+    public function setProfilePic($profilePic)
+    {
+        $this->profilePic = $profilePic;
+
+        return $this;
+    }
 
     public function register()
     {
@@ -108,7 +218,8 @@ class User
     }
 
     //Function for ajax live checking if username or email already exist
-    public static function getAllUsernames(){
+    public static function getAllUsernames()
+    {
         $conn = Db::getInstance();
         $statement = $conn->query("select username from users");
         //$result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -116,8 +227,10 @@ class User
         $result = $statement->fetchAll(PDO::FETCH_COLUMN);
         return $result;
     }
+
     //Function for ajax live checking if username or email already exist
-    public static function getAllEmails(){
+    public static function getAllEmails()
+    {
         $conn = Db::getInstance();
         $statement = $conn->query("select email from users");
         //$result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -125,9 +238,8 @@ class User
         $result = $statement->fetchAll(PDO::FETCH_COLUMN);
         return $result;
     }
-    
-
-    public function canLogin($email, $password){
+    public function canLogin($email, $password)
+    {
         //this function checks if a user can login
         $email = $this->getEmail();
         $password = $this->getPassword();
@@ -139,52 +251,25 @@ class User
         $user = $statement->fetch();
         $hash = $user["password"];
 
-        if (!$user){
+        if (!$user) {
             throw new Exception("Email and/or password is wrong");
         }
 
         // password_verify() verifies the user
         // this function returns true or false
-        if (password_verify($password, $hash)){
+        if (password_verify($password, $hash)) {
             return true;
         } else {
             return false;
         }
     }
 
-
-    //setters and getters for feature 5 (changing password)
-    protected $passwordNew;
-
-    /**
-     * Get the value of new password
-     */ 
-    public function getPasswordNew(){
-        return $this->passswordNew;
-    }
-
-     /**
-     * Set the value of new password
-     *
-     * @return  self
-     */ 
-    public function setPasswordNew($passwordNew){
-        $this->passswordNew = $passwordNew;
-
-        return $this;
-    }
-    
-
-    
-    //checks if the current password = password from database
-    public function checkPassword(){
-        
+    //Checks if the current password = password from database
+    public function checkPassword()
+    {
         $password = $this->getPassword();
-
         $userId = 20; //test
-        
         // $email = $_SESSION["user"];
-        
 
         $conn = Db::getInstance();
         $statement = $conn->prepare("select * from users where id = :id");
@@ -192,30 +277,25 @@ class User
         $statement->execute();
         $user = $statement->fetch();
         $hash = $user["password"];
-    
-        //var_dump($user);
-       
-    
-        if (password_verify($password, $hash)){
+
+        if (password_verify($password, $hash)) {
             return true;
-            
         } else {
             return false;
         }
     }
 
-
-    //insert new password in database
-    //also contains password_hash
-    public function savePassword(){
-
+    //Insert new password in database
+    //Also contains password_hash
+    public function savePassword()
+    {
         $userId = 20; //test
         $passwordNew = $this->getPasswordNew();
 
         $options = [
-			'cost' => 12,
-		];
-		$passwordNew = password_hash($this->passwordNew, PASSWORD_DEFAULT, $options);
+            'cost' => 12,
+        ];
+        $passwordNew = password_hash($this->passwordNew, PASSWORD_DEFAULT, $options);
 
         $conn = Db::getInstance();
         $statement = $conn->prepare("update users set password = :password where id = :id");
@@ -224,55 +304,26 @@ class User
         $statement->bindValue(":id", $userId);
 
         $result = $statement->execute();
-       
+
         return $result;
-
     }
 
+    //Checks if current email = email from database
+    public function checkEmail()
+    {
+        $email = $this->getEmail();
 
-
-
-    //setters and getters for feature 6 (changing email)
-    protected $emailNew;
-
-    /**
-     * Get the value of new email
-     */ 
-    public function getEmailNew(){
-        return $this->emailNew;
-    }
-
-     /**
-     * Set the value of new email
-     *
-     * @return  self
-    */ 
-    public function setEmailNew($emailNew){
-         $this->emailNew = $emailNew;
-
-        return $this;
-    }
- 
-
-
-    //checks if current email = email from database
-    public function checkEmail(){
-        
-        $email= $this->getEmail();
-        //echo $email;
-        
         $conn = Db::getInstance();
         $statement = $conn->prepare("select * from users where email = :email");
         $statement->bindValue(":email", $email);
         $statement->execute();
-        $user=$statement->fetch();
+        $user = $statement->fetch();
         return $user;
     }
- 
 
-    //insert new email in database
-    public function saveEmail(){
-
+    //Insert new email in database
+    public function saveEmail()
+    {
         $userId = 20; //test
         $emailNew = $this->getEmailNew();
 
@@ -286,9 +337,8 @@ class User
 
         return $result;
     }
-
-    public static function getAllEmail(){
-        
+    public static function getAllEmail()
+    {
         $userId = 20; //test
         $conn = Db::getInstance();
 
@@ -299,52 +349,29 @@ class User
         $user = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $user;
     }
-
-    //setters and getters for feature 5 (changing bio)
-    protected $bio;
-    
-    /**
-     * Get the value of bio
-     */ 
-    public function getBio(){
-        return $this->bio;
-    }
-
-     /**
-     * Set the value of bio
-     *
-     * @return  self
-    */ 
-    public function setBio($bio){
-         $this->bio = $bio;
-
-        return $this;
-    }
-
-    public function loadProfilePic() {
-
+    public function loadProfilePic()
+    {
         include_once(__DIR__ . "/Db.php");
         $conn = Db::getInstance();
 
         $q = $conn->prepare("SELECT profile_picture FROM users WHERE id = :id");
         $q->bindValue(":id", $this->userId);
         $q->execute();
-        
+
         $res = $q->fetch()["profile_picture"];
         $this->profilePic = $res;
-
     }
 
-   //insert bio in database
-    public function saveBio(){
-
+    //Insert bio in database
+    public function saveBio()
+    {
         $userId = 20; //test
         $bio = $this->getBio();
 
-        //conn
+        //Conn
         $conn = Db::getInstance();
 
-        //insert query
+        //Insert query
         $statement = $conn->prepare("update users set bio = :bio where id = :id");
 
         $statement->bindValue(":bio", $bio);
@@ -352,12 +379,11 @@ class User
 
         $user = $statement->execute();
 
-        //return result
+        //Return result
         return $user;
     }
-
-    
-    public static function getAllBio(){
+    public static function getAllBio()
+    {
         $conn = Db::getInstance();
 
         $statement = $conn->prepare('select * from users');
@@ -365,8 +391,8 @@ class User
         $user = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $user;
     }
-
-    public static function getAllName(){
+    public static function getAllName()
+    {
         $userId = 20; //test
         $conn = Db::getInstance();
 
@@ -376,88 +402,9 @@ class User
         $statement->execute();
         $user = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $user;
-
-    }   
-    /**
-     * Get the value of userId
-     */ 
-    public function setuserId($x)
-    {
-        if(strpos($x, '@') && strpos($x, '.com')){
-            /*
-            $db_name = "warrel_netimdtok";
-            $db_user = "warrel_netimdtok";
-            $db_password = "php@team5";
-            $db_host = "warrel.net.mysql";
-            */
-            $db_name = "imdtok";
-            $db_user = "root";
-            $db_password = "";
-            $db_host = "localhost";
-            //$conn = Db::getInstance(); ===> doesn't work
-            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
-            $statement = $conn->prepare('select id from users where email = :email');
-            $statement->bindValue(":email", $x);
-            $statement->execute();
-            $user = $statement->fetchAll();
-            return $user;
-        }else{
-            /*
-            $db_name = "warrel_netimdtok";
-            $db_user = "warrel_netimdtok";
-            $db_password = "php@team5";
-            $db_host = "warrel.net.mysql";
-            */
-            $db_name = "imdtok";
-            $db_user = "root";
-            $db_password = "";
-            $db_host = "localhost";
-            //$conn = Db::getInstance(); ===> doesn't work
-            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
-            $statement = $conn->prepare('select id from users where username = :username');
-            $statement->bindValue(":username", $x);
-            $statement->execute();
-            $user = $statement->fetchAll();
-            return $user;
-        }
-
-        return $this->userId;
     }
-
-    public function setId($id)
+    public function getUsernameFromId($x)
     {
-        $this->userId = $id;
-        return $this;
-    }
-
-    /**
-     * Get the value of userId
-     */ 
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Get the value of profilePic
-     */ 
-    public function getProfilePic()
-    {
-        return $this->profilePic;
-    }
-
-    /**
-     * Set the value of profilePic
-     *
-     * @return  self
-     */ 
-    public function setProfilePic($profilePic)
-    {
-        $this->profilePic = $profilePic;
-
-        return $this;
-    }
-    public function getUsernameFromId($x){
         $conn = Db::getInstance();
         $statement = $conn->prepare('select username from users where id = :user_id');
         $statement->bindValue(":user_id", $x);
@@ -471,5 +418,10 @@ class User
         $statement = $conn->query("SELECT * FROM posts WHERE user_id = $x");
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+    public function setId($id)
+    {
+        $this->userId = $id;
+        return $this;
     }
 }
