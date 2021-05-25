@@ -1,14 +1,17 @@
 <?php
-        function timeAgo($time_ago){
-            $cur_time 	= time();
-            $time_elapsed 	= $cur_time - $time_ago;
-            $seconds 	= $time_elapsed ;
-            $minutes 	= round($time_elapsed / 60 );
-            $hours 		= round($time_elapsed / 3600);
-            $days 		= round($time_elapsed / 86400 );
-            $weeks 		= round($time_elapsed / 604800);
-            $months 	= round($time_elapsed / 2600640 );
-            $years 		= round($time_elapsed / 31207680 );
+// source : https://www.a2zwebhelp.com/time-ago-php-code
+    class Time{
+
+        public function timeAgo($timeAgo){
+            $curTime 	= time();
+            $timeElapsed = $curTime - $timeAgo;
+            $seconds 	= $timeElapsed ;
+            $minutes 	= round($timeElapsed / 60 );
+            $hours 		= round($timeElapsed / 3600);
+            $days 		= round($timeElapsed / 86400 );
+            $weeks 		= round($timeElapsed / 604800);
+            $months 	= round($timeElapsed / 2600640 );
+            $years 		= round($timeElapsed / 31207680 );
             // Seconds
             if($seconds <= 60){
                 echo "$seconds seconds ago";
@@ -62,12 +65,7 @@
                     echo "$years years ago";
                 }
             }
-
-            $curenttime= "2013-07-10 09:09:09";
-            $time_ago =strtotime($curenttime);
-            echo $time_ago;
-
-
-
-            }
+        
+        }
+    }
 ?>

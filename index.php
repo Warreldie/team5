@@ -15,18 +15,10 @@ if (isset($_SESSION['user'])) {
         include_once(__DIR__ . "/classes/Comment.php");
         $comment = new Comment();
        
-        /*$timeAgo = $comment->getTimeStamp();
-        // time to time ago
-
-        $now = new DateTime();
-        $past = new DateTime($timeAgo['timestamp']);
-
-        $interval = $now->diff($past);
-
-        $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');*/
-
-        /*include_once(__DIR__ . "/classes/Time.php");
-        $time = new Time();*/
+        //Timestamps looping
+        include_once(__DIR__ . "/classes/Time.php");
+        $time= new Time();
+        
     } else {
         //user not logged in -> redirect
         header("Location: login.php");
@@ -71,7 +63,8 @@ if (isset($_SESSION['user'])) {
             <!-- post comments -->
             <ul class="feed mb-3 post__comments__list list-group list-group-numbered">
                 <?php $allComments = Comment::getAllFromId($result["id"]); ?>
-                <?php foreach ($allComments as $c) : ?>
+                <?php date_default_timezone_set('Europe/Brussels'); ?>
+                <?php foreach ($allComments as $c) :  ?>
                     <li class="mb-1 list-group-item justify-content-between rounded">
                         <div class="row ms-2 me-auto text-dark">
                             <div class="col-2">
@@ -80,7 +73,11 @@ if (isset($_SESSION['user'])) {
                             <div class="col-5">
                                 <div class="">username</div>
                                 <div class="fw-bold"><?php echo htmlspecialchars($c['text']) . "<br>"; ?></div>
-                                <?php //echo $time_ago ?>
+                            
+                                <!-- convert and post timestamp -->
+                                <?php $currenttime = $c['timestamp'];?> 
+                                <?php $timeAgo = strtotime($currenttime);?> 
+                                <div class = "date date_comment"><?php echo $time->timeAgo($timeAgo)?> </div> 
                             </div>
                         </div>
                     </li>

@@ -8,7 +8,7 @@
             
              $db_name = "imdtok";
              $db_user = "root";
-             $db_password = "";
+             $db_password = "root";
              $db_host = "localhost";
             
             if(self::$conn != null){
