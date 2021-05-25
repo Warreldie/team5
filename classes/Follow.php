@@ -48,12 +48,7 @@ class Follow
 
     public function save()
     {
-        $db_name = "warrel_netimdtok";
-        $db_user = "warrel_netimdtok";
-        $db_password = "php@team5";
-        $db_host = "warrel.net.mysql";
-        //$conn = Db::getInstance(); ===> doesn't work
-        $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+        $conn = Db::getInstance();
         $statement = $conn->prepare("INSERT into followers (following_id, follower_id, active) VALUES (:following_id, :follower_id, true)");
 
         $following_id = $this->getFollow();
@@ -67,12 +62,7 @@ class Follow
     }
     public function exist()
     {
-        $db_name = "warrel_netimdtok";
-        $db_user = "warrel_netimdtok";
-        $db_password = "php@team5";
-        $db_host = "warrel.net.mysql";
-        //$conn = Db::getInstance(); ===> doesn't work
-        $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+        $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT * FROM followers WHERE following_id = :following_id && follower_id = :follower_id");
         $following_id = $this->getFollow();
         $follower_id = $this->getFollower();
@@ -85,12 +75,7 @@ class Follow
     }
     public function active()
     {
-        $db_name = "warrel_netimdtok";
-        $db_user = "warrel_netimdtok";
-        $db_password = "php@team5";
-        $db_host = "warrel.net.mysql";
-        //$conn = Db::getInstance(); ===> doesn't work
-        $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+        $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT active FROM followers WHERE following_id = :following_id && follower_id = :follower_id");
 
         $following_id = $this->getFollow();
@@ -104,12 +89,7 @@ class Follow
     }
     public function UnFollow()
     {
-        $db_name = "warrel_netimdtok";
-        $db_user = "warrel_netimdtok";
-        $db_password = "php@team5";
-        $db_host = "warrel.net.mysql";
-        //$conn = Db::getInstance(); ===> doesn't work
-        $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+        $conn = Db::getInstance();
         $statement = $conn->prepare("UPDATE followers SET active = 0 WHERE following_id = :following_id && follower_id = :follower_id;");
         $following_id = $this->getFollow();
         $follower_id = $this->getFollower();
@@ -121,12 +101,7 @@ class Follow
     }
     public function Following()
     {
-        $db_name = "warrel_netimdtok";
-        $db_user = "warrel_netimdtok";
-        $db_password = "php@team5";
-        $db_host = "warrel.net.mysql";
-        //$conn = Db::getInstance(); ===> doesn't work
-        $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+        $conn = Db::getInstance();
         $statement = $conn->prepare("UPDATE followers SET active = 1 WHERE following_id = :following_id && follower_id = :follower_id;");
         $following_id = $this->getFollow();
         $follower_id = $this->getFollower();
@@ -138,12 +113,7 @@ class Follow
     }
     public function CountFollowing()
     {
-        $db_name = "warrel_netimdtok";
-        $db_user = "warrel_netimdtok";
-        $db_password = "php@team5";
-        $db_host = "warrel.net.mysql";
-        //$conn = Db::getInstance(); ===> doesn't work
-        $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+        $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT COUNT(follower_id) FROM followers WHERE follower_id = :following_id;");
         $following_id = $this->getFollow();
         $statement->bindValue(":following_id", $following_id);

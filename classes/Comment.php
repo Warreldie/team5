@@ -91,18 +91,11 @@ class Comment
     //Save comment in database
     public function save()
     {
-
         $text = $this->getText();
         $postId = $this->getPostId();
         $userId = $this->getUserId();
 
-        $db_name = "warrel_netimdtok";
-        $db_user = "warrel_netimdtok";
-        $db_password = "php@team5";
-        $db_host = "warrel.net.mysql";
-
-        //$conn = Db::getInstance();
-        $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+        $conn = Db::getInstance();
         $statement = $conn->prepare("insert into comments (text, post_id, user_id) values (:text, :postId, :userId)");
 
         $statement->bindValue(":text", $text);

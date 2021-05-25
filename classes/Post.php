@@ -253,12 +253,7 @@ class Post
     public function setUserid($x)
     {
         if (strpos($x, '@') && strpos($x, '.com')) {
-            $db_name = "warrel_netimdtok";
-            $db_user = "warrel_netimdtok";
-            $db_password = "php@team5";
-            $db_host = "warrel.net.mysql";
-            //$conn = Db::getInstance(); ===> doesn't work
-            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $conn = Db::getInstance();
             $statement = $conn->prepare('select id from users where email = :email');
             $statement->bindValue(":email", $x);
             $statement->execute();
@@ -267,12 +262,7 @@ class Post
 
             return $this;
         } else {
-            $db_name = "warrel_netimdtok";
-            $db_user = "warrel_netimdtok";
-            $db_password = "php@team5";
-            $db_host = "warrel.net.mysql";
-            //$conn = Db::getInstance(); ===> doesn't work
-            $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $conn = Db::getInstance();
             $statement = $conn->prepare('select id from users where username = :username');
             $statement->bindValue(":username", $x);
             $statement->execute();
