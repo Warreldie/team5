@@ -1,7 +1,7 @@
 <?php
 include_once(__DIR__ . "/classes/User.php");
 
-//session start with username in it
+//Session start with username in it
 session_start();
 
 if (!empty($_POST)) {
@@ -9,8 +9,7 @@ if (!empty($_POST)) {
     $user = new User();
 
     $user->setBio($_POST['bio']);
-
-    // saves bio by executing a query in the database
+    //Saves bio by executing a query in the database
     $user->saveBio();
     $success = "Bio changed";
 } else {
@@ -22,7 +21,6 @@ if (!empty($_GET)) {
         $message = "Succesfully updated your profile picture!";
     }
 }
-
 
 $user = User::getAllBio();
 

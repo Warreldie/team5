@@ -1,18 +1,19 @@
 <?php
 include_once(__DIR__ . "/classes/Follow.php");
 include_once(__DIR__ . "/classes/User.php");
-//session start with username in it
+//Session start with username in it
 session_start();
-//new following
+//New following
 $following = new Follow();
-//Number 15 has to be replaced with a nubre from the url
+//Number 11 has to be replaced with a nuber from the url
 $following->setFollow(11);
 
-//get Follower
+//Get Follower
 $user = new User();
 $user->setUserId($_SESSION["user"]);
 $userid = $user->getUserId();
 
+//Get id number from url
 $id = $_GET["id"];
 $username = $user->getUsernameFromId($id);
 $posts = $user->getPostId($id);
@@ -84,7 +85,7 @@ $countfollowing = $following->CountFollowing();
     </div>
     <!-- navbar bottom -->
     <?php include_once(__DIR__ . "/partials/nav.bottom.white.inc.php"); ?>
-    
+
     <script src="js/follow.js"></script>
 </body>
 

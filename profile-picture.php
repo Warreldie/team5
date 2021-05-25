@@ -1,17 +1,16 @@
 <?php
-
 session_start();
 include_once("./classes/User.php");
 include_once("./classes/Picture.php");
 
-// Check login
+//Check login
 $loggedin = true;
 if (!$loggedin) {
     header("Location: login.php");
     die();
 }
 
-if (!empty($_POST)) { // On submit
+if (!empty($_POST)) { //On submit
     $file = $_FILES["profile-picture"];
 
     $profile_picture = new Picture();
@@ -19,7 +18,7 @@ if (!empty($_POST)) { // On submit
     $profile_picture->saveProfilePicture();
 }
 
-$userId = 16; // Test value
+$userId = 16; //Test value
 $user = new User();
 $user->setId($userId);
 $user->loadProfilePic();

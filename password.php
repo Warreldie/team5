@@ -7,17 +7,13 @@ if (!empty($_POST)) {
         include_once(__DIR__ . "/classes/User.php");
         $user = new User();
         $user->setPassword($_POST["password"]);
-
-        //checks if password matches password from databank
+        //Checks if password matches password from databank
         if ($user->checkPassword()) {
-
-            // checks if new password = confirm password
+            //Checks if new password = confirm password
             if (($_POST["password_new"]) === ($_POST["password_conf"])) {
-
-                //sets new password
+                //Sets new password
                 $user->setPasswordNew($_POST["password_new"]);
-
-                // saves  new password by executing a query in the database
+                //Saves new password by executing a query in the database
                 $user->savePassword();
                 $success = "Password changed";
             } else {

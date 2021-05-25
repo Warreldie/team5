@@ -3,22 +3,17 @@ include_once(__DIR__ . "/helpers/Security.php");
 session_start();
 
 if (!empty($_POST)) {
-
     try {
         include_once(__DIR__ . "/classes/User.php");
         $user = new User();
         $user->setEmail($_POST["email"]);
-
-        //checks if email matches email from databank
+        //Checks if email matches email from databank
         if ($user->checkEmail()) {
-
-            // checks if new email = confirm email
+            //Checks if new email = confirm email
             if (($_POST["email_new"]) === ($_POST["email_conf"])) {
-
-                //sets new email
+                //Sets new email
                 $user->setEmailNew($_POST["email_new"]);
-
-                // saves new email by executing a query in the database
+                //Saves new email by executing a query in the database
                 $user->saveEmail();
                 $success = "Email changed";
             } else {

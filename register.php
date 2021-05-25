@@ -2,26 +2,22 @@
 if (!empty($_POST)) {
     try {
         include_once(__DIR__ . "/classes/User.php");
-
-        // create a new user object
+        //Create a new user object
         $user = new User();
-
-        // use setters to fill in data for this user All this data have to be set otherwise the user
-        // will not get into the database
+        //Use setters to fill in data for this user All this data have to be set otherwise the user
+        //Will not get into the database
         $user->setUsername($_POST["username"]);
         $user->setPassword(($_POST['password']));
         $user->setDate_of_birth(($_POST['date_of_birth']));
         $user->setEmail($_POST['email']);
-
-        // register the user by executing a query in the database
+        //Register the user by executing a query in the database
         $user->register();
-
-        // start a session and redirect the user to index.php
+        //Start a session and redirect the user to index.php
         session_start();
         $_SESSION['user'] = $user->getUsername();
         header("Location: index.php");
     } catch (Throwable $error) {
-        // if any errors are thrown in the class, they can be caught here
+        //If any errors are thrown in the class, they can be caught here
         $error = $error->getMessage();
     }
 }
