@@ -16,7 +16,7 @@ if (isset($_POST["submit"])) {
     if($post->allowed()){
         //Looking if there was an error and if the filesize is not to big
         if($post->getFileerror() === 0){
-            if($post->getFilesize() < 500000){
+            if($post->getFilesize() < 2500000){
                 //Placing the image in content map with unique id then you can find all the content at team5/content => http://localhost/phples/team5/content/ 
                 $post->setFilenamenew();
                 $post->setFiledestination();
@@ -30,7 +30,7 @@ if (isset($_POST["submit"])) {
                 $post->saveTags();
                 //Zet ook nog een succes-boodschap op één of andere manier
                 header("location: index.php?uploadsucces");
-            }else{
+            } else {
                 $error = "Your file was to big!";
             }
         }else{
