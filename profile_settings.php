@@ -69,7 +69,7 @@ $profilePicture = $user->getProfilePic();
         </div>
         <div class="text-center mb-5">
             <button class="btn btn-secondary">
-                <a href="profile-picture.php" class="text-reset text-decoration-none">Upload profile picture</a>
+                <a href="profile-picture.php" class="text-reset text-decoration-none">Update profile picture</a>
             </button>
         </div>
         <div class="row mb-4">
