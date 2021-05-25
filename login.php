@@ -1,5 +1,5 @@
 <?php
-//checks to see if input is empty
+//Checks to see if input is empty
 if (!empty($_POST)) {
     try {
         include_once(__DIR__ . "/classes/User.php");
@@ -8,10 +8,10 @@ if (!empty($_POST)) {
         $password = $user->setPassword($_POST["password"]);
 
         if ($user->canLogin($email, $password)) {
-            //session start with username in it
+            //Session start with username in it
             session_start();
             $_SESSION['user'] = $user->getEmail();
-            //go to index.php
+            //Go to index.php
             echo "You are in!";
             header("Location: index.php");
         } else {
