@@ -73,7 +73,7 @@ if (!empty($_POST)) {
             </div>
         </form>
     </main>
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>

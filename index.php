@@ -112,7 +112,7 @@ if (isset($_SESSION['user'])) {
         <a class="nav-link text-white" href="profile.php">Me</a>
     </nav>
 
-    <script src="comment.js"></script>
+    <script src="js/comment.js"></script>
 
 </body>
 

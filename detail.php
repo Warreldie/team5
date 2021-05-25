@@ -82,7 +82,7 @@ session_start();
             </div>
         </div>
     </div>
-    <script src="follow.js"></script>
+    <script src="js/follow.js"></script>
 </body>
 
 </html>
