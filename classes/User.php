@@ -312,10 +312,12 @@ class User
     public function checkEmail()
     {
         $email = $this->getEmail();
+        $userId = 20;
 
         $conn = Db::getInstance();
-        $statement = $conn->prepare("select * from users where email = :email");
+        $statement = $conn->prepare("select * from users where email = :email and id = :id");
         $statement->bindValue(":email", $email);
+        $statement->bindValue(":id", $userId);
         $statement->execute();
         $user = $statement->fetch();
         return $user;
