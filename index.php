@@ -56,6 +56,13 @@ if (isset($_SESSION['user'])) {
             </div>
             <!-- post image -->
             <img src="./content/<?php echo $result['post_image'] ?>" class="img-fluid" alt="IMDTok-video">
+
+            <!-- convert and post timestamp -->
+            <?php $currenttime = $result['timestamp'];?> 
+            <?php $timeAgo = strtotime($currenttime);?> 
+            <div class = "date date_post"><?php echo $time->timeAgo($timeAgo)?> </div> 
+
+        
             <p class="likes mt-3">
                 <?php
                     $like = new Like();

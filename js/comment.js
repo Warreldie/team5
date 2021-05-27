@@ -21,7 +21,13 @@ posts.forEach((e) => {
         //console.log("Success:", result);
         let newComment = document.createElement("li");
         newComment.innerHTML = result.body;
+        newComment.feed= "fw-bold";
         e.querySelector(".post__comments__list").appendChild(newComment);
+
+        let newDate = document.createElement("div");
+        newDate.innerHTML = "just now";
+        newComment.appendChild(newDate);
+
       })
       .catch((error) => {
         console.log("Error:", error);

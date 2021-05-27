@@ -5,10 +5,15 @@ abstract class Db
 
     public static function getInstance()
     {
-        $db_name = "warrel_netimdtok";
+       /* $db_name = "warrel_netimdtok";
         $db_user = "warrel_netimdtok";
         $db_password = "php@team5";
-        $db_host = "warrel.net.mysql";
+        $db_host = "warrel.net.mysql";*/
+
+        $db_name = "imdtok";
+        $db_user = "root";
+        $db_password = "root";
+        $db_host = "localhost";
 
         if (self::$conn != null) {
             //Connection found, return connection
