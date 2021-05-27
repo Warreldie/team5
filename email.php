@@ -40,7 +40,7 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-    <a class="mb-3 page-link" href="profile_settings.php" aria-label="Previous">
+    <a class="mb-3 page-link" href="profile-settings.php" aria-label="Previous">
         <span aria-hidden="true">&larr;</span>
     </a>
 

@@ -22,17 +22,19 @@ if (!empty($_GET)) {
     }
 }
 
+
+$userId = 20; // Test value
+$user = new User();
+$user->setId($userId);
+$user->loadProfilePic();
+$profilePicture = $user->getProfilePic();
+
+
 $user = User::getAllBio();
 
 $user = User::getAllEmail();
 
 $user = User::getAllName();
-
-$userId = 16; // Test value
-$user = new User();
-$user->setId($userId);
-$user->loadProfilePic();
-$profilePicture = $user->getProfilePic();
 
 ?>
 <!DOCTYPE html>

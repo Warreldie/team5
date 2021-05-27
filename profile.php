@@ -6,7 +6,7 @@ $user = new User();
 $user = User::getAllBio();
 
 $user = new User();
-$userId = 16; // Test value
+$userId = 20; // Test value
 $user->setId($userId);
 $user->loadProfilePic();
 $profilePicture = $user->getProfilePic();
@@ -57,7 +57,7 @@ $profilePicture = $user->getProfilePic();
             </div>
         </div>
         <div class="mb-3 d-grid gap-2">
-            <button type="button" class="btn btn-outline-dark"><a href="profile_settings.php" class="text-reset text-decoration-none">Change profile</a></button>
+            <button type="button" class="btn btn-outline-dark"><a href="profile-settings.php" class="text-reset text-decoration-none">Change profile</a></button>
         </div>
         <div class="mb-3 d-grid gap-2">
             <?php foreach ($user as $u) : ?>

@@ -96,7 +96,7 @@ class User
      */
     public function getPasswordNew()
     {
-        return $this->passswordNew;
+        return $this->passwordNew;
     }
 
     /**
@@ -106,7 +106,7 @@ class User
      */
     public function setPasswordNew($passwordNew)
     {
-        $this->passswordNew = $passwordNew;
+        $this->passwordNew = $passwordNew;
 
         return $this;
     }

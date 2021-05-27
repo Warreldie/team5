@@ -3,7 +3,7 @@
 session_start();
 
 // test value
-$userId = 16;
+$userId = 20;
 include_once(__DIR__ . "/classes/Like.php");
 
 if (isset($_SESSION['user'])) {
