@@ -6,6 +6,7 @@ if (!empty($_POST)) {
     try {
         include_once(__DIR__ . "/classes/User.php");
         $user = new User();
+        
         $user->setEmail($_POST["email"]);
         //Checks if email matches email from databank
         if ($user->checkEmail()) {

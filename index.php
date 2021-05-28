@@ -72,7 +72,7 @@ if (isset($_SESSION['user'])) {
 
                     $likeStatus = $like->getStatus();
                 ?>
-
+        
                 <?php if($likeStatus === "0"): ?>
                 <button class="btn btn-outline-light" data-liked="false" data-postid="<?php echo $result["id"]; ?>">Like</button>
                 <?php elseif($likeStatus === NULL): ?>
@@ -80,7 +80,7 @@ if (isset($_SESSION['user'])) {
                 <?php elseif($likeStatus === "1"): ?>
                 <button class="btn btn-light" data-liked="true" data-postid="<?php echo $result["id"]; ?>">Liked</button>
                 <?php endif; ?>
-
+        
                 <?php
                     $likes = Like::getNumberOfLikes($result["id"]);
                     if($likes === "1"):
