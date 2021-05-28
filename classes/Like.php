@@ -38,6 +38,8 @@
         public function loadLike() {
 
             include_once(__DIR__ . "/Db.php");
+
+            
             $conn = Db::getInstance();
 
             $q = $conn->prepare("SELECT * FROM likes WHERE post_id = :post_id AND user_id = :user_id");
@@ -45,8 +47,8 @@
             $q->bindValue(":user_id", $this->userId);
             $q->execute();
 
-            $status = $q->fetch()["status"];
-            $this->status = $status;
+            //$status = $q->fetch()["status"];
+            //$this->status = $status;
 
         }
 

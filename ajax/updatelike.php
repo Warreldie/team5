@@ -5,7 +5,7 @@
 
     if(!empty($_POST)) {
 
-        $userId = 16; // Test value
+        $userId = 20; // Test value
         $postId = $_POST["postId"];
         $status = $_POST["status"];
 
