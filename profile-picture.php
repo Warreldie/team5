@@ -18,7 +18,7 @@ if (!empty($_POST)) { //On submit
     $profile_picture->saveProfilePicture();
 }
 
-$userId = 16; //Test value
+$userId = 20; //Test value
 $user = new User();
 $user->setId($userId);
 $user->loadProfilePic();

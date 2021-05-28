@@ -56,7 +56,7 @@ class Picture
                     include_once(__DIR__ . "/Db.php");
                     $conn = Db::getInstance();
 
-                    $userId = 16; //Test value
+                    $userId = 20; //Test value
                     $st = $conn->prepare("UPDATE users SET profile_picture = :profile_picture WHERE id = :id");
                     $st->bindValue(":profile_picture", $fileDestination);
                     $st->bindValue(":id", $userId);
